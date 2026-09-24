@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 
+
 Route::get('/', function () {
     return view('user.dashboard');
 });
@@ -15,6 +16,36 @@ Route::get('/transactions', function () {
     return view('user.transactions');
 });
 
+Route::get('/income', function () {
+    return view('user.income');
+});
+Route::get('/expenses', function () {
+    return view('user.expenses');
+});
+
+Route::get('/categories', function () {
+    return view('user.categories');
+});
+
+Route::get('/reports', function () {
+    return view('user.reports');
+});
+
+Route::get('/budget-goals', function () {
+    return view('user.budget-goals');
+});
+
+Route::get('/saving-tips', function () {
+    return view('user.saving-tips');
+});
+
+Route::get('/profile', function () {
+    return view('user.profile');
+});
+
+Route::get('/settings', function () {
+    return view('user.settings');
+});
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
