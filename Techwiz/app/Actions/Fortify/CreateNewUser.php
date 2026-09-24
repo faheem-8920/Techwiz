@@ -10,26 +10,63 @@ use Laravel\Jetstream\Jetstream;
 
 class CreateNewUser implements CreatesNewUsers
 {
-    use PasswordValidationRules;
-
-    /**
-     * Validate and create a newly registered user.
-     *
-     * @param  array<string, string>  $input
-     */
     public function create(array $input): User
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => $this->passwordRules(),
-            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users',
+            ],
+
+            'Academicyear' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'Savingsgoal' => [
+                'required',
+                'numeric',
+                'min:0',
+            ],
+
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+            ],
+
+            'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature()
+                ? ['accepted', 'required']
+                : '',
+
         ])->validate();
 
-        return User::create([
-            'name' => $input['name'],
-            'email' => $input['email'],
-            'password' => Hash::make($input['password']),
-        ]);
+        $user = new User();
+
+        $user->name = $input['name'];
+        $user->email = $input['email'];
+        $user->Academicyear = $input['Academicyear'];
+        $user->Savingsgoal = $input['Savingsgoal'];
+
+        $user->userrole = 'student';
+        $user->Status = true;
+
+        $user->password = Hash::make($input['password']);
+
+        $user->save();
+
+        return $user;
     }
 }
