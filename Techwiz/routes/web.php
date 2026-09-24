@@ -7,6 +7,14 @@ Route::get('/', function () {
     return view('user.dashboard');
 });
 
+Route::get('/wallet', function () {
+    return view('user.wallet');
+});
+
+Route::get('/transactions', function () {
+    return view('user.transactions');
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

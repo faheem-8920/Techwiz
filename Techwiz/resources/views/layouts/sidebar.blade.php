@@ -24,21 +24,21 @@
             <li class="sidebar-title">CampusCoin</li>
 
             <li class="sidebar-item active">
-                <a href="{{ route('dashboard') }}" class="sidebar-link">
+                <a href="/" class="sidebar-link">
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="/wallet" class="sidebar-link">
                     <i class="bi bi-wallet2"></i>
                     <span>Wallet</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a href="#" class="sidebar-link">
+                <a href="/transactions" class="sidebar-link">
                     <i class="bi bi-arrow-left-right"></i>
                     <span>Transactions</span>
                 </a>
