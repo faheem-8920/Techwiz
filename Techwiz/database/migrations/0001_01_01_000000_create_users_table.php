@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+              $table->string('Academicyear')->nullable();
+            $table->decimal('Savingsgoal', 10, 2)->default(0);
+            $table->string('userrole')->default('student');
+            $table->boolean('Status')->default(true);
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
