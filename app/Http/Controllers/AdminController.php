@@ -26,7 +26,7 @@ public function Addcategorylogic(Request $request)
 public function Allcategories()
 {
     $categories = Category::all();
-    return view('Allcategories', compact('categories'));
+    return view('admin.Allcategories', compact('categories'));
 
 
 }
@@ -34,7 +34,7 @@ public function Allcategories()
 Public function Editcategory($id)
 {
     $category = Category::findOrFail($id);
-    return view('Editcategory', compact('category'));
+    return view('admin.Editcategory', compact('category'));
 }
 
 Public function Updatecategory(Request $request, $id)
@@ -99,7 +99,7 @@ public function Activateuser($id)
 public function Addtransaction()
 {
     $categories = Category::all();
-    return view('Addtransaction', compact('categories'));
+    return view('admin.Addtransaction', compact('categories'));
 }
 
 
@@ -123,7 +123,7 @@ public function Addtransactionlogic(Request $request)
 public function Alltransactions()
 {
     $transactions = Transaction::all();
-    return view('Alltransactions', compact('transactions'));
+    return view('admin.Alltransactions', compact('transactions'));
 
 }
 
@@ -132,7 +132,7 @@ public function Edittransaction($id)
         $categories = Category::where('user_id', auth()->id())->get();
 
     $transaction = Transaction::findOrFail($id);
-    return view('Edittransaction', compact('transaction', 'categories'));
+    return view('admin.Edittransaction', compact('transaction', 'categories'));
 }
 
 public function Updatetransaction(Request $request, $id)
@@ -158,7 +158,7 @@ public function Deletetransaction($id)
 public function Allusersbudgets()
 {
     $budgets = Budget::all();
-    return view('Allusersbudgets', compact('budgets'));
+    return view('admin.Allusersbudgets', compact('budgets'));
 }
 
 

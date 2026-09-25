@@ -57,7 +57,7 @@ Route::middleware([
 });
 
 Route::get('/addcategory', function () {
-    return view('Addcategory');
+    return view('admin.Addcategory');
 });
 
 Route::post('/Addcategorylogic', [AdminController::class, 'Addcategorylogic']);
@@ -90,7 +90,7 @@ Route::post('/updatetransaction/{id}', [AdminController::class, 'Updatetransacti
 
 Route::get('/deletetransaction/{id}', [AdminController::class, 'Deletetransaction']);
 
-Route::get('allusersbudgets', [AdminController::class, 'Allusersbudgets']);
+Route::get('/allusersbudgets', [AdminController::class, 'Allusersbudgets']);
 
 Route::get('deleteuserbudget/{id}', [AdminController::class, 'Deletebudget']);
 
