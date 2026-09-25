@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -93,6 +94,50 @@ public function Activateuser($id)
 
 
 }
+
+
+public function Addtransaction()
+{
+    $categories = Category::all();
+    return view('Addtransaction', compact('categories'));
+}
+
+
+public function Addtransactionlogic(Request $request)
+{
+    $transaction = new Transaction();
+    $transaction->user_id = auth()->id();
+    $transaction->category_id = $request->category_id;
+    $transaction->Amount = $request->Amount;
+    $transaction->Description = $request->Description;
+    $transaction->Date = $request->Date;
+    $transaction->save();
+
+    return redirect('/addtransaction');
+
+
+
+
+}
+
+public function Alltransactions()
+{
+    $transactions = Transaction::all();
+    return view('Alltransactions', compact('transactions'));
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
 
 
 

@@ -77,3 +77,9 @@ Route::get('/deactivateuser/{id}', [AdminController::class, 'Deactivateuser']);
 Route::get('/activateuser/{id}', [AdminController::class, 'Activateuser']);
 
 Route::get('/deleteuser/{id}', [AdminController::class, 'Deleteuser']);
+
+Route::get('/addtransaction', [AdminController::class, 'Addtransaction']);
+
+Route::post('/addtransactionlogic', [AdminController::class, 'Addtransactionlogic']);
+
+Route::get('/alltransactions', [AdminController::class, 'Alltransactions']);
