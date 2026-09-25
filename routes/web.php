@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('user.dashboard');
@@ -83,3 +83,57 @@ Route::get('/addtransaction', [AdminController::class, 'Addtransaction']);
 Route::post('/addtransactionlogic', [AdminController::class, 'Addtransactionlogic']);
 
 Route::get('/alltransactions', [AdminController::class, 'Alltransactions']);
+
+Route::get('/edittransaction/{id}', [AdminController::class, 'Edittransaction']);
+
+Route::post('/updatetransaction/{id}', [AdminController::class, 'Updatetransaction']);
+
+Route::get('/deletetransaction/{id}', [AdminController::class, 'Deletetransaction']);
+
+Route::get('allusersbudgets', [AdminController::class, 'Allusersbudgets']);
+
+Route::get('deleteuserbudget/{id}', [AdminController::class, 'Deletebudget']);
+
+
+
+
+Route::get('/useraddcategory', function () {
+    return view('User.Addcategory');
+});
+
+Route::post('/useraddcategorylogic', [UserController::class, 'Addcategorylogic']);
+
+Route::get('/userallcategories', [UserController::class, 'Allcategories']);
+
+Route::get('/usereditcategory/{id}', [UserController::class, 'Editcategory']);
+
+Route::post('/userupdatecategory/{id}', [UserController::class, 'Updatecategory']);
+
+Route::get('/userdeletecategory/{id}', [UserController::class, 'Deletecategory']);
+
+
+Route::get('/useraddtransaction', [UserController::class, 'Addtransaction']);
+
+Route::post('/useraddtransactionlogic', [UserController::class, 'Addtransactionlogic']);
+
+Route::get('/useralltransactions', [UserController::class, 'Alltransactions']);
+
+Route::get('/useredittransaction/{id}', [UserController::class, 'Edittransaction']);
+
+Route::post('/userupdatetransaction/{id}', [UserController::class, 'Updatetransaction']);
+
+Route::get('/userdeletetransaction/{id}', [UserController::class, 'Deletetransaction']);
+
+Route::get('/userdashboard', [UserController::class, 'Userdashboardanalytics']);
+
+Route::get('/useraddbudget', [UserController::class, 'Addbudget']);
+
+Route::post('/useraddbudgetlogic', [UserController::class, 'Addbudgetlogic']);
+
+Route::get('/userallbudgets', [UserController::class, 'Allbudgets']);
+
+Route::get('/usereditbudget/{id}', [UserController::class, 'Editbudget']);
+
+Route::post('/userupdatebudget/{id}', [UserController::class, 'Updatebudget']);
+
+Route::get('/userdeletebudget/{id}', [UserController::class, 'Deletebudget']);
