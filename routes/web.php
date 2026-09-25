@@ -69,3 +69,11 @@ Route::get('/editcategory/{id}', [AdminController::class, 'Editcategory']);
 Route::post('/updatecategory/{id}', [AdminController::class, 'Updatecategory']);
 
 Route::get('/deletecategory/{id}', [AdminController::class, 'Deletecategory']);
+
+Route::get('/allusers',[AdminController::class,'Allusers']);
+
+Route::get('/deactivateuser/{id}', [AdminController::class, 'Deactivateuser']);
+
+Route::get('/activateuser/{id}', [AdminController::class, 'Activateuser']);
+
+Route::get('/deleteuser/{id}', [AdminController::class, 'Deleteuser']);

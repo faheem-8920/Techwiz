@@ -10,7 +10,6 @@ class AdminController extends Controller
     
 public function Addcategorylogic(Request $request)
 {
-        dd($request->all());
 
     $category=new Category();
     $category->user_id = auth()->id();
@@ -56,4 +55,46 @@ public function Deletecategory($id)
 
 
 }
+
+public function Allusers(){
+
+$users=User::all();
+
+return view('Allusers',compact('users'));
+
+}
+
+public function Deleteuser($id)
+{
+    $user = User::findOrFail($id);
+    $user->delete();
+    return redirect('/allusers');
+
+}
+
+public function Deactivateuser($id)
+{
+    $user = User::findOrFail($id);
+    $user->Status = false;
+    $user->save();
+    return redirect('/allusers');
+
+
+}
+
+
+public function Activateuser($id)
+{
+    $user = User::findOrFail($id);
+    $user->Status = true;
+    $user->save();
+    return redirect('/allusers');
+
+
+
+}
+
+
+
+
 }
