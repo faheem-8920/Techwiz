@@ -5,8 +5,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('user.dashboard');
+    return view('auth.login');
 });
+
 
 Route::get('/wallet', function () {
     return view('user.wallet');
@@ -52,7 +53,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('User.dashboard');
     })->name('dashboard');
 });
 

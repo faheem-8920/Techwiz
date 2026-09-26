@@ -41,17 +41,14 @@
                 </div>
 
 
-                {{-- SESSION STATUS --}}
-                <x-auth-session-status
-                    class="mb-4"
-                    :status="session('status')"
-                />
+                <!-- {{-- SESSION STATUS --}}
+              
 
 
-                {{-- VALIDATION ERRORS --}}
-                <x-validation-errors
+                <!-- {{-- VALIDATION ERRORS --}}
+                <!-- <x-validation-errors
                     class="mb-4"
-                />
+                /> --> 
 
 
                 {{-- LOGIN FORM --}}
