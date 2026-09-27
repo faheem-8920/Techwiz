@@ -82,7 +82,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
 Route::middleware(['auth', 'role:student'])->group(function () {
 
-    Route::get('/userdashboard', [UserController::class, 'Userdashboardanalytics']);
+    Route::get('/userdashboard', [UserController::class, 'Userdashboard']);
 
 
     Route::get('/useraddcategory', function () {

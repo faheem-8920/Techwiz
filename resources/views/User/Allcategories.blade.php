@@ -92,8 +92,8 @@
 
     <h2>All Categories</h2>
 
-    <a href="{{ url('/addcategory') }}" class="add-button">
-        Add Category
+    <a href="{{ url('/useraddcategory') }}" class="add-button">
+        Add New Category
     </a>
 
     <table>
