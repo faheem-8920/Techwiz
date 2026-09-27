@@ -4,6 +4,8 @@
 
 @section('content')
 
+
+
 <div class="page-heading">
 
     <div class="row">
@@ -35,7 +37,7 @@
                             </h6>
 
                             <h3 class="font-extrabold mb-0">
-                                Rs. 50,000
+                                Rs. {{ number_format($totalIncome, 2) }}
                             </h3>
 
                             <small class="text-success">
@@ -72,7 +74,7 @@
                             </h6>
 
                             <h3 class="font-extrabold mb-0">
-                                Rs. 20,000
+                                Rs. {{ number_format($totalExpenses, 2) }}
                             </h3>
 
                             <small class="text-danger">
@@ -108,8 +110,13 @@
                                 Current Balance
                             </h6>
 
+                            @php
+        $balance = $totalIncome - $totalExpenses;
+    @endphp
+    
+
                             <h3 class="font-extrabold mb-0">
-                                Rs. 30,000
+                                Rs. {{ number_format($balance, 2) }}
                             </h3>
 
                             <small class="text-primary">

@@ -58,12 +58,11 @@ public function Deletecategory($id)
 
 }
 
-public function Allusers(){
+public function Allusers()
+{
+    $users = User::all();
 
-$users=User::all();
-
-return view('admin.Allusers',compact('users'));
-
+    return view('admin.Allusers', compact('users'));
 }
 
 public function Deleteuser($id)

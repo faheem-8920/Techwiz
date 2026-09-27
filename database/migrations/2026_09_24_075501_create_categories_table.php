@@ -20,7 +20,7 @@ return new class extends Migration
                 ->nullOnDelete();
 
             $table->string('Name');
-            $table->enum('type', ['Income', 'Expense']);    
+            $table->enum('type', ['income', 'expense']);    
 
 
             $table->timestamps();

@@ -161,7 +161,7 @@
                             </h6>
 
                             <h3 class="text-success">
-                                Rs. 50,000
+                               Rs. {{ number_format($totalIncome, 2) }}
                             </h3>
 
                         </div>
@@ -202,7 +202,7 @@
                             </h6>
 
                             <h3 class="text-danger">
-                                Rs. 32,000
+                                Rs. {{ number_format($totalExpenses, 2) }}
                             </h3>
 
                         </div>
@@ -241,9 +241,13 @@
                             <h6 class="text-muted">
                                 Remaining Balance
                             </h6>
+                            @php
+        $balance = $totalIncome - $totalExpenses;
+    @endphp
+    
 
                             <h3 class="text-primary">
-                                Rs. 18,000
+                               Rs. {{ number_format($balance, 2) }}
                             </h3>
 
                         </div>
@@ -295,7 +299,7 @@
                             </h5>
 
                             <h3>
-                                Rs. 50,000
+                                Rs. {{ number_format($totalIncome, 2) }}
                             </h3>
 
                         </div>
@@ -307,7 +311,7 @@
                             </h5>
 
                             <h3>
-                                Rs. 32,000
+                                Rs. {{ number_format($totalExpenses, 2) }}
                             </h3>
 
                         </div>
