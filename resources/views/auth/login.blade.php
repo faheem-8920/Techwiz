@@ -1,68 +1,47 @@
 <x-guest-layout>
 
-    <div class="campus-login-page">
+    <div class="auth-page">
 
-        {{-- LEFT SIDE --}}
-        <div class="campus-login-left">
+        <div class="auth-shape shape-1"></div>
+        <div class="auth-shape shape-2"></div>
 
-            <div class="campus-brand">
+        <div class="auth-card">
+
+            <div class="auth-brand">
 
                 <img
                     src="{{ asset('assets/images/logo/img.png') }}"
                     alt="CampusCoin"
-                    class="login-logo"
+                    class="auth-logo"
                 >
 
                 <h1>CampusCoin</h1>
 
-                <p>
-                    Manage your student budget<br>
-                    easily and smartly.
-                </p>
+            </div>
+
+            <div class="auth-heading">
+
+                <h2>Welcome Back</h2>
+
+                <p>Login to manage your student budget</p>
 
             </div>
 
-        </div>
+
+            {{-- LOGIN FORM --}}
+            <form method="POST" action="{{ route('login') }}">
+
+                @csrf
 
 
-        {{-- RIGHT SIDE --}}
-        <div class="campus-login-right">
+                {{-- EMAIL --}}
+                <div class="auth-field">
 
-            <div class="login-card">
+                    <label for="email">Email Address</label>
 
-                <div class="login-heading">
+                    <div class="input-wrapper">
 
-                    <h2>Welcome Back!</h2>
-
-                    <p>
-                        Login to manage your finances
-                    </p>
-
-                </div>
-
-
-                <!-- {{-- SESSION STATUS --}}
-              
-
-
-                <!-- {{-- VALIDATION ERRORS --}}
-                <!-- <x-validation-errors
-                    class="mb-4"
-                /> --> 
-
-
-                {{-- LOGIN FORM --}}
-                <form method="POST" action="{{ route('login') }}">
-
-                    @csrf
-
-
-                    {{-- EMAIL --}}
-                    <div class="login-field">
-
-                        <label for="email">
-                            Email Address
-                        </label>
+                        <i class="bi bi-envelope input-icon"></i>
 
                         <input
                             id="email"
@@ -72,18 +51,22 @@
                             required
                             autofocus
                             autocomplete="username"
-                            placeholder="Enter your email"
+                            placeholder="you@example.com"
                         >
 
                     </div>
 
+                </div>
 
-                    {{-- PASSWORD --}}
-                    <div class="login-field">
 
-                        <label for="password">
-                            Password
-                        </label>
+                {{-- PASSWORD --}}
+                <div class="auth-field">
+
+                    <label for="password">Password</label>
+
+                    <div class="input-wrapper">
+
+                        <i class="bi bi-lock input-icon"></i>
 
                         <input
                             id="password"
@@ -94,369 +77,331 @@
                             placeholder="Enter your password"
                         >
 
-                    </div>
-
-
-                    {{-- REMEMBER + FORGOT --}}
-                    <div class="login-options">
-
-                        <label class="remember-me">
-
-                            <input
-                                type="checkbox"
-                                name="remember"
-                                id="remember_me"
-                            >
-
-                            <span>Remember me</span>
-
-                        </label>
-
-
-                        @if (Route::has('password.request'))
-
-                            <a href="{{ route('password.request') }}">
-                                Forgot Password?
-                            </a>
-
-                        @endif
+                        <i class="bi bi-eye-slash toggle-password" data-target="password"></i>
 
                     </div>
 
-
-                    {{-- LOGIN BUTTON --}}
-                    <button
-                        type="submit"
-                        class="login-button"
-                    >
-
-                        <i class="bi bi-box-arrow-in-right"></i>
-
-                        Login
-
-                    </button>
-
-                </form>
+                </div>
 
 
-                {{-- REGISTER --}}
-                @if (Route::has('register'))
+                {{-- REMEMBER + FORGOT --}}
+                <div class="auth-options">
 
-                    <div class="register-text">
+                    <label class="remember-me">
 
-                        Don't have an account?
+                        <input type="checkbox" name="remember" id="remember_me">
+                        <span>Remember me</span>
 
-                        <a href="{{ route('register') }}">
-                            Create Account
+                    </label>
+
+
+                    @if (Route::has('password.request'))
+
+                        <a href="{{ route('password.request') }}">
+                            Forgot Password?
                         </a>
 
-                    </div>
+                    @endif
 
-                @endif
+                </div>
 
-            </div>
+
+                {{-- LOGIN BUTTON --}}
+                <button type="submit" class="auth-button">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Login
+                </button>
+
+            </form>
+
+
+            {{-- REGISTER --}}
+            @if (Route::has('register'))
+
+                <div class="auth-footer-text">
+
+                    Don't have an account?
+
+                    <a href="{{ route('register') }}">Create Account</a>
+
+                </div>
+
+            @endif
 
         </div>
 
     </div>
 
 
-    {{-- LOGIN PAGE CSS --}}
+    {{-- AUTH PAGES CSS --}}
     <style>
 
         * {
             box-sizing: border-box;
         }
 
-
         body {
             margin: 0;
-            background: #f4f7ff;
         }
 
-
-        .campus-login-page {
+        .auth-page {
             min-height: 100vh;
-            display: flex;
-            background: #f4f7ff;
-        }
-
-
-        /* LEFT SIDE */
-
-        .campus-login-left {
-            width: 45%;
-            min-height: 100vh;
+            width: 100%;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            background: linear-gradient(
-                145deg,
-                #435fc7,
-                #687ed2
-            );
+            position: relative;
+            overflow: hidden;
 
-            padding: 50px;
+            background: #0f1229;
+            padding: 30px 20px;
         }
 
-
-        .campus-brand {
-            text-align: center;
-            color: white;
+        .auth-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.55;
+            z-index: 0;
         }
 
+        .shape-1 {
+            width: 420px;
+            height: 420px;
 
-        .login-logo {
-            width: 180px;
-            height: 100px;
+            top: -120px;
+            left: -100px;
+
+            background: radial-gradient(circle, #7c3aed, transparent 70%);
+        }
+
+        .shape-2 {
+            width: 480px;
+            height: 480px;
+
+            bottom: -150px;
+            right: -120px;
+
+            background: radial-gradient(circle, #06b6d4, transparent 70%);
+        }
+
+        .auth-card {
+            position: relative;
+            z-index: 1;
+
+            width: 100%;
+            max-width: 420px;
+
+            background: rgba(255, 255, 255, 0.97);
+
+            padding: 44px 38px;
+
+            border-radius: 22px;
+
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .auth-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-bottom: 28px;
+        }
+
+        .auth-logo {
+            width: 46px;
+            height: 46px;
 
             object-fit: contain;
 
-            background: white;
-            border-radius: 20px;
-
-            padding: 10px;
-
-            margin-bottom: 25px;
+            border-radius: 10px;
         }
 
+        .auth-brand h1 {
+            font-size: 20px;
+            font-weight: 800;
 
-        .campus-brand h1 {
-            font-size: 38px;
-            font-weight: 700;
-            margin: 0 0 12px;
-        }
+            color: #0f1229;
 
-
-        .campus-brand p {
-            font-size: 17px;
-            line-height: 1.7;
             margin: 0;
-
-            opacity: 0.9;
         }
 
+        .auth-heading {
+            margin-bottom: 28px;
+        }
 
-        /* RIGHT SIDE */
+        .auth-heading h2 {
+            font-size: 26px;
+            font-weight: 700;
 
-        .campus-login-right {
-            width: 55%;
+            color: #0f1229;
 
-            min-height: 100vh;
+            margin: 0 0 6px;
+        }
+
+        .auth-heading p {
+            color: #7b7f9e;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .auth-field {
+            margin-bottom: 20px;
+        }
+
+        .auth-field label {
+            display: block;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            color: #0f1229;
+
+            margin-bottom: 7px;
+        }
+
+        .input-wrapper {
+            position: relative;
 
             display: flex;
             align-items: center;
-            justify-content: center;
-
-            padding: 40px;
         }
 
+        .input-icon {
+            position: absolute;
+            left: 15px;
 
-        /* LOGIN CARD */
+            color: #9ca0c2;
+            font-size: 16px;
 
-        .login-card {
+            pointer-events: none;
+        }
+
+        .input-wrapper input {
             width: 100%;
-            max-width: 460px;
+            height: 50px;
 
-            background: white;
+            padding: 0 44px;
 
-            padding: 42px;
+            border: 1.5px solid #e6e7f2;
+            border-radius: 10px;
 
-            border-radius: 18px;
-
-            box-shadow:
-                0 15px 45px rgba(43, 60, 120, 0.10);
-        }
-
-
-        /* HEADING */
-
-        .login-heading {
-            margin-bottom: 30px;
-        }
-
-
-        .login-heading h2 {
-            color: #173d78;
-
-            font-size: 30px;
-
-            font-weight: 700;
-
-            margin-bottom: 8px;
-        }
-
-
-        .login-heading p {
-            color: #7890bd;
-
-            margin: 0;
-
-            font-size: 15px;
-        }
-
-
-        /* FORM */
-
-        .login-field {
-            margin-bottom: 22px;
-        }
-
-
-        .login-field label {
-            display: block;
-
-            color: #173d78;
-
-            font-size: 15px;
-
-            font-weight: 600;
-
-            margin-bottom: 8px;
-        }
-
-
-        .login-field input {
-            width: 100%;
-
-            height: 52px;
-
-            padding: 0 16px;
-
-            border: 1px solid #dce3f2;
-
-            border-radius: 9px;
-
-            color: #173d78;
-
-            background: #fff;
-
-            font-size: 15px;
+            font-size: 14px;
+            color: #0f1229;
 
             outline: none;
 
             transition: 0.2s;
         }
 
+        .input-wrapper input:focus {
+            border-color: #7c3aed;
 
-        .login-field input:focus {
-            border-color: #526bc9;
-
-            box-shadow:
-                0 0 0 3px rgba(82, 107, 201, 0.10);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.10);
         }
 
-
-        .login-field input::placeholder {
-            color: #a2aec4;
+        .input-wrapper input::placeholder {
+            color: #b3b6cf;
         }
 
+        .toggle-password {
+            position: absolute;
+            right: 15px;
 
-        /* OPTIONS */
+            color: #9ca0c2;
+            font-size: 16px;
 
-        .login-options {
+            cursor: pointer;
+
+            transition: 0.15s;
+        }
+
+        .toggle-password:hover {
+            color: #7c3aed;
+        }
+
+        .auth-options {
             display: flex;
-
             align-items: center;
-
             justify-content: space-between;
 
-            margin-bottom: 25px;
+            margin-bottom: 24px;
 
-            font-size: 14px;
+            font-size: 13px;
         }
-
 
         .remember-me {
             display: flex;
-
             align-items: center;
-
             gap: 7px;
 
-            color: #6e7f9f;
+            color: #6b6f8d;
 
             cursor: pointer;
         }
 
-
         .remember-me input {
-            width: 16px;
-            height: 16px;
+            width: 15px;
+            height: 15px;
 
-            accent-color: #526bc9;
+            accent-color: #7c3aed;
         }
 
-
-        .login-options a {
-            color: #526bc9;
+        .auth-options a {
+            color: #7c3aed;
+            font-weight: 600;
 
             text-decoration: none;
-
-            font-weight: 600;
         }
 
-
-        .login-options a:hover {
+        .auth-options a:hover {
             text-decoration: underline;
         }
 
-
-        /* LOGIN BUTTON */
-
-        .login-button {
+        .auth-button {
             width: 100%;
-
-            height: 52px;
+            height: 50px;
 
             border: none;
+            border-radius: 10px;
 
-            border-radius: 9px;
-
-            background: #4b63c6;
+            background: linear-gradient(135deg, #7c3aed, #4f46e5);
 
             color: white;
 
-            font-size: 16px;
-
-            font-weight: 600;
+            font-size: 15px;
+            font-weight: 700;
 
             cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
 
             transition: 0.2s;
         }
 
+        .auth-button:hover {
+            transform: translateY(-2px);
 
-        .login-button:hover {
-            background: #394fae;
-
-            transform: translateY(-1px);
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.35);
         }
 
-
-        .login-button i {
-            margin-right: 7px;
-        }
-
-
-        /* REGISTER */
-
-        .register-text {
+        .auth-footer-text {
             text-align: center;
 
-            margin-top: 25px;
+            margin-top: 24px;
 
-            color: #7b8ba8;
-
-            font-size: 14px;
+            color: #7b7f9e;
+            font-size: 13px;
         }
 
-
-        .register-text a {
-            color: #526bc9;
-
+        .auth-footer-text a {
+            color: #7c3aed;
             font-weight: 600;
 
             text-decoration: none;
@@ -464,72 +409,48 @@
             margin-left: 4px;
         }
 
-
-        .register-text a:hover {
+        .auth-footer-text a:hover {
             text-decoration: underline;
         }
 
+        @media (max-width: 480px) {
 
-        /* MOBILE */
-
-        @media (max-width: 900px) {
-
-            .campus-login-page {
-                display: block;
+            .auth-card {
+                padding: 34px 24px;
             }
 
-
-            .campus-login-left {
-                width: 100%;
-                min-height: 280px;
-
-                padding: 30px;
-            }
-
-
-            .campus-login-right {
-                width: 100%;
-                min-height: auto;
-
-                padding: 30px 20px;
-            }
-
-
-            .campus-brand h1 {
-                font-size: 30px;
-            }
-
-
-            .login-logo {
-                width: 150px;
-                height: 80px;
-            }
-
-        }
-
-
-        @media (max-width: 500px) {
-
-            .login-card {
-                padding: 28px 22px;
-            }
-
-
-            .login-heading h2 {
-                font-size: 25px;
-            }
-
-
-            .login-options {
-                align-items: flex-start;
-
-                flex-direction: column;
-
-                gap: 12px;
+            .auth-heading h2 {
+                font-size: 22px;
             }
 
         }
 
     </style>
+
+
+    {{-- PASSWORD TOGGLE SCRIPT --}}
+    <script>
+
+        document.querySelectorAll('.toggle-password').forEach(function (icon) {
+
+            icon.addEventListener('click', function () {
+
+                var input = document.getElementById(icon.dataset.target);
+
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('bi-eye-slash');
+                    icon.classList.add('bi-eye');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('bi-eye');
+                    icon.classList.add('bi-eye-slash');
+                }
+
+            });
+
+        });
+
+    </script>
 
 </x-guest-layout>

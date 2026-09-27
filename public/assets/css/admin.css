@@ -1,7 +1,7 @@
 /* =========================================================
-   GLASS STORE
+   CAMPUSCOIN
    ADMIN PANEL — PREMIUM UI
-   Glass & Aluminium Management System
+   Student Finance Management System
 ========================================================= */
 
 
@@ -11,10 +11,10 @@
 
 :root {
 
-    --primary: #0B3A66;
-    --primary-light: #1769AA;
-    --primary-dark: #062B4A;
-    --primary-soft: #EAF3FA;
+    --primary: #6C5CE7;
+    --primary-light: #7C3AED;
+    --primary-dark: #4F3AC9;
+    --primary-soft: #F1EEFE;
 
     --secondary: #AEB8C2;
     --secondary-light: #E2E8ED;
@@ -24,10 +24,10 @@
     --admin-card: #FFFFFF;
     --admin-card-soft: #F8FAFC;
 
-    --sidebar-bg: #092F52;
-    --sidebar-bg-light: #0B3A66;
-    --sidebar-hover: #124D7D;
-    --sidebar-active: #1769AA;
+    --sidebar-bg: #14103A;
+    --sidebar-bg-light: #1F1855;
+    --sidebar-hover: #2A2170;
+    --sidebar-active: #6C5CE7;
 
     --navbar-bg: rgba(255,255,255,0.96);
 
@@ -65,7 +65,7 @@
     --shadow-sm: 0 4px 12px rgba(15,23,42,.055);
     --shadow-md: 0 10px 28px rgba(15,23,42,.08);
     --shadow-lg: 0 18px 45px rgba(15,23,42,.12);
-    --shadow-primary: 0 12px 28px rgba(11,58,102,.18);
+    --shadow-primary: 0 12px 28px rgba(108,92,231,.18);
 
     --transition: all .25s ease;
 
@@ -108,7 +108,7 @@
     --secondary: #718294;
     --secondary-dark: #AAB6C2;
 
-    --primary-soft: #19354D;
+    --primary-soft: #2A1F52;
 }
 
 
@@ -138,7 +138,7 @@ body {
     background:
         radial-gradient(
             circle at 90% 0%,
-            rgba(23,105,170,.045),
+            rgba(108,92,231,.045),
             transparent 30%
         ),
         var(--admin-bg);
@@ -245,7 +245,7 @@ img {
     background:
         radial-gradient(
             circle at 100% 0%,
-            rgba(23,105,170,.30),
+            rgba(124,58,237,.35),
             transparent 30%
         ),
         linear-gradient(
@@ -257,7 +257,7 @@ img {
     color: #fff;
 
     box-shadow:
-        8px 0 35px rgba(2,20,35,.13);
+        8px 0 35px rgba(10,5,30,.18);
 
     overflow: hidden;
 
@@ -345,7 +345,7 @@ img {
 }
 
 .brand-name span {
-    color: #7CC4EF;
+    color: #B9A6FF;
 }
 
 .brand-text small {
@@ -464,12 +464,12 @@ img {
     background:
         linear-gradient(
             90deg,
-            rgba(23,105,170,.95),
-            rgba(29,123,193,.72)
+            rgba(124,58,237,.95),
+            rgba(108,92,231,.72)
         );
 
     box-shadow:
-        0 8px 20px rgba(0,0,0,.13),
+        0 8px 20px rgba(0,0,0,.18),
         inset 0 1px 0 rgba(255,255,255,.08);
 }
 
@@ -572,8 +572,8 @@ img {
     background:
         linear-gradient(
             145deg,
-            #2582C8,
-            #0B3A66
+            #9B7FF0,
+            #4F3AC9
         );
 
     color: #fff;
@@ -692,7 +692,7 @@ img {
     z-index: 1100;
 
     background:
-        rgba(2,12,20,.55);
+        rgba(10,5,25,.55);
 
     backdrop-filter: blur(3px);
 
@@ -959,7 +959,7 @@ img {
     background: var(--admin-card);
 
     box-shadow:
-        0 0 0 3px rgba(23,105,170,.08);
+        0 0 0 3px rgba(108,92,231,.08);
 }
 
 .search-shortcut {
@@ -1019,7 +1019,7 @@ img {
 
     color: var(--primary);
 
-    border-color: rgba(23,105,170,.35);
+    border-color: rgba(108,92,231,.35);
 
     background: var(--primary-soft);
 
@@ -1205,7 +1205,7 @@ img {
 }
 
 .notif-item.unread {
-    background: rgba(23,105,170,.025);
+    background: rgba(108,92,231,.025);
 }
 
 .notif-item-icon {
@@ -1352,8 +1352,8 @@ img {
     background:
         linear-gradient(
             145deg,
-            #1A78B9,
-            #0B3A66
+            #8B6FE8,
+            #4F3AC9
         );
 
     color: #fff;
@@ -1765,7 +1765,7 @@ img {
     border-radius: 50%;
 
     background:
-        rgba(23,105,170,.035);
+        rgba(108,92,231,.035);
 
     pointer-events: none;
 }
@@ -1775,7 +1775,7 @@ img {
     transform: translateY(-4px);
 
     border-color:
-        rgba(23,105,170,.18);
+        rgba(108,92,231,.18);
 
     box-shadow: var(--shadow-md);
 }
@@ -1947,7 +1947,7 @@ img {
     border-color: transparent;
 
     box-shadow:
-        0 5px 14px rgba(11,58,102,.15);
+        0 5px 14px rgba(108,92,231,.25);
 }
 
 .admin-btn-primary:hover {
@@ -1955,7 +1955,7 @@ img {
     color: #fff;
 
     box-shadow:
-        0 8px 20px rgba(11,58,102,.22);
+        0 8px 20px rgba(108,92,231,.32);
 }
 
 .admin-btn-secondary {
@@ -2459,7 +2459,7 @@ img {
     border-color: var(--primary-light);
 
     box-shadow:
-        0 0 0 3px rgba(23,105,170,.08);
+        0 0 0 3px rgba(108,92,231,.08);
 }
 
 textarea.admin-form-control,
@@ -2553,7 +2553,7 @@ textarea.form-control {
     border-color: var(--primary-light);
 
     box-shadow:
-        0 0 0 3px rgba(23,105,170,.08);
+        0 0 0 3px rgba(108,92,231,.08);
 }
 
 
@@ -3375,7 +3375,7 @@ textarea.form-control {
 
         transform: translateX(-105%);
 
-        box-shadow: 15px 0 40px rgba(0,0,0,.18);
+        box-shadow: 15px 0 40px rgba(0,0,0,.25);
     }
 
     .admin-sidebar.mobile-open {
