@@ -145,6 +145,47 @@ public function Userdashboardanalytics()
     return view('User.Dashboardanalytics', compact('totalIncome', 'totalExpenses', 'totalTransactions'));
 }
 
+public function Userdashboard()
+{
+    $userId = auth()->id();
+
+    $totalIncome = Transaction::where('user_id', $userId)
+        ->whereHas('category', function ($query) {
+            $query->where('type', 'income');
+        })
+        ->sum('Amount');
+
+    $totalExpenses = Transaction::where('user_id', $userId)
+        ->whereHas('category', function ($query) {
+            $query->where('type', 'expense');
+        })
+        ->sum('Amount');
+
+    $totalTransactions = Transaction::where('user_id', $userId)->count();
+
+    return view('User.dashboard', compact('totalIncome', 'totalExpenses', 'totalTransactions'));
+}
+public function Userreport()
+{
+    $userId = auth()->id();
+
+    $totalIncome = Transaction::where('user_id', $userId)
+        ->whereHas('category', function ($query) {
+            $query->where('type', 'income');
+        })
+        ->sum('Amount');
+
+    $totalExpenses = Transaction::where('user_id', $userId)
+        ->whereHas('category', function ($query) {
+            $query->where('type', 'expense');
+        })
+        ->sum('Amount');
+
+    $totalTransactions = Transaction::where('user_id', $userId)->count();
+
+    return view('User.reports', compact('totalIncome', 'totalExpenses', 'totalTransactions'));
+}
+
  public function Addbudget(){
 
     $categories = Category::where('user_id', auth()->id())->get();

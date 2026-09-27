@@ -16,7 +16,7 @@
     >
 
     <title>
-        @yield('title', 'Admin Dashboard') | Glass Store
+        @yield('title', 'Admin Dashboard') | CampusCoin
     </title>
 
 
@@ -111,22 +111,22 @@
 
         <div class="sidebar-brand">
 
-            <a href="">
+            <a href="{{ url('/admin/dashboard') }}">
 
                 <div class="brand-icon">
 
-                    <i class="fa-solid fa-gem"></i>
+                    <i class="fa-solid fa-coins"></i>
 
                 </div>
 
                 <div class="brand-text">
 
                     <span class="brand-name">
-                        Glass<span>Store</span>
+                        Campus<span>Coin</span>
                     </span>
 
                     <small>
-                        Glass & Aluminium
+                        Student Finance
                     </small>
 
                 </div>
@@ -151,7 +151,7 @@
 
 
             <a
-                href=""
+                href="{{ url('/admin/dashboard') }}"
                 class="sidebar-link {{ request()->is('admin/dashboard') ? 'active' : '' }}"
             >
 
@@ -172,7 +172,7 @@
 
 
             <a
-                href="allcategories"
+                href="{{ url('/allcategories') }}"
                 class="sidebar-link {{ request()->is('admin/categories*') ? 'active' : '' }}"
             >
 
@@ -410,7 +410,7 @@
                 <div class="navbar-page-info">
 
                     <span class="navbar-eyebrow">
-                        GLASS STORE ADMIN
+                        CAMPUSCOIN ADMIN
                     </span>
 
                     <h1>
@@ -420,7 +420,7 @@
                     <p>
                         @yield(
                             'page-description',
-                            'Manage your Glass & Aluminium business'
+                            'Manage your CampusCoin platform'
                         )
                     </p>
 
@@ -506,7 +506,7 @@
                                 </strong>
 
                                 <span>
-                                    Stay updated with your store
+                                    Stay updated with CampusCoin
                                 </span>
 
                             </div>
@@ -536,9 +536,9 @@
 
                                     <p>
                                         <strong>
-                                            New order #1042
+                                            New transaction
                                         </strong>
-                                        was placed
+                                        was recorded
                                     </p>
 
                                     <span>
@@ -567,9 +567,9 @@
 
                                     <p>
                                         <strong>
-                                            Low stock:
+                                            Budget alert:
                                         </strong>
-                                        Tempered Glass 8mm
+                                        User nearing limit
                                     </p>
 
                                     <span>
@@ -598,7 +598,7 @@
 
                                     <p>
                                         <strong>
-                                            New customer
+                                            New student
                                         </strong>
                                         registered
                                     </p>
@@ -628,11 +628,11 @@
                                 <div class="notif-item-content">
 
                                     <p>
-                                        Order
+                                        Category
                                         <strong>
-                                            #1039
+                                            "Allowance"
                                         </strong>
-                                        was shipped
+                                        was updated
                                     </p>
 
                                     <span>
@@ -790,7 +790,7 @@
                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
                             <span>
-                                View Store
+                                View Site
                             </span>
 
                         </a>
@@ -984,12 +984,12 @@
 
                     <span class="footer-brand-icon">
 
-                        <i class="fa-solid fa-gem"></i>
+                        <i class="fa-solid fa-coins"></i>
 
                     </span>
 
                     <strong>
-                        Glass Store
+                        CampusCoin
                     </strong>
 
                 </div>
@@ -1016,13 +1016,13 @@
             <div class="footer-right">
 
                 <span>
-                    © {{ date('Y') }} Glass Store
+                    © {{ date('Y') }} CampusCoin
                 </span>
 
                 <span class="footer-made">
                     Crafted with
                     <i class="fa-solid fa-heart"></i>
-                    for better management
+                    for smarter student budgeting
                 </span>
 
 

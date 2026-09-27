@@ -127,6 +127,12 @@ Route::get('/userdeletetransaction/{id}', [UserController::class, 'Deletetransac
 
 Route::get('/userdashboard', [UserController::class, 'Userdashboardanalytics']);
 
+Route::get('/dashboard', [UserController::class, 'Userdashboard']);
+
+Route::get('/reports', [UserController::class, 'Userreport']);
+
+
+
 Route::get('/useraddbudget', [UserController::class, 'Addbudget']);
 
 Route::post('/useraddbudgetlogic', [UserController::class, 'Addbudgetlogic']);
