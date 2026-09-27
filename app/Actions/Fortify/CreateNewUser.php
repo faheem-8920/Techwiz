@@ -53,6 +53,13 @@ class CreateNewUser implements CreatesNewUsers
 
         ])->validate();
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | CREATE USER
+        |--------------------------------------------------------------------------
+        */
+
         $user = new User();
 
         $user->name = $input['name'];
@@ -61,6 +68,8 @@ class CreateNewUser implements CreatesNewUsers
         $user->Savingsgoal = $input['Savingsgoal'];
 
         $user->userrole = 'student';
+
+        // New users are active by default
         $user->Status = true;
 
         $user->password = Hash::make($input['password']);

@@ -7,6 +7,7 @@
 
         <div class="auth-card">
 
+            {{-- CAMPUSCOIN BRAND --}}
             <div class="auth-brand">
 
                 <img
@@ -19,6 +20,8 @@
 
             </div>
 
+
+            {{-- HEADING --}}
             <div class="auth-heading">
 
                 <h2>Welcome Back</h2>
@@ -26,6 +29,44 @@
                 <p>Login to manage your student budget</p>
 
             </div>
+
+
+            {{-- BLOCKED ACCOUNT MESSAGE --}}
+            @if (session('error'))
+
+                <div class="login-error-message">
+
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+
+                    <div>
+                        {{ session('error') }}
+                    </div>
+
+                </div>
+
+            @endif
+
+
+            {{-- LOGIN VALIDATION ERRORS --}}
+            @if ($errors->any())
+
+                <div class="login-error-message">
+
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+
+                    <div>
+
+                        @foreach ($errors->all() as $error)
+
+                            <div>{{ $error }}</div>
+
+                        @endforeach
+
+                    </div>
+
+                </div>
+
+            @endif
 
 
             {{-- LOGIN FORM --}}
@@ -37,7 +78,9 @@
                 {{-- EMAIL --}}
                 <div class="auth-field">
 
-                    <label for="email">Email Address</label>
+                    <label for="email">
+                        Email Address
+                    </label>
 
                     <div class="input-wrapper">
 
@@ -62,7 +105,9 @@
                 {{-- PASSWORD --}}
                 <div class="auth-field">
 
-                    <label for="password">Password</label>
+                    <label for="password">
+                        Password
+                    </label>
 
                     <div class="input-wrapper">
 
@@ -77,20 +122,30 @@
                             placeholder="Enter your password"
                         >
 
-                        <i class="bi bi-eye-slash toggle-password" data-target="password"></i>
+                        <i
+                            class="bi bi-eye-slash toggle-password"
+                            data-target="password"
+                        ></i>
 
                     </div>
 
                 </div>
 
 
-                {{-- REMEMBER + FORGOT --}}
+                {{-- REMEMBER + FORGOT PASSWORD --}}
                 <div class="auth-options">
 
                     <label class="remember-me">
 
-                        <input type="checkbox" name="remember" id="remember_me">
-                        <span>Remember me</span>
+                        <input
+                            type="checkbox"
+                            name="remember"
+                            id="remember_me"
+                        >
+
+                        <span>
+                            Remember me
+                        </span>
 
                     </label>
 
@@ -107,9 +162,15 @@
 
 
                 {{-- LOGIN BUTTON --}}
-                <button type="submit" class="auth-button">
+                <button
+                    type="submit"
+                    class="auth-button"
+                >
+
                     <i class="bi bi-box-arrow-in-right"></i>
+
                     Login
+
                 </button>
 
             </form>
@@ -122,7 +183,9 @@
 
                     Don't have an account?
 
-                    <a href="{{ route('register') }}">Create Account</a>
+                    <a href="{{ route('register') }}">
+                        Create Account
+                    </a>
 
                 </div>
 
@@ -140,9 +203,11 @@
             box-sizing: border-box;
         }
 
+
         body {
             margin: 0;
         }
+
 
         .auth-page {
             min-height: 100vh;
@@ -156,16 +221,25 @@
             overflow: hidden;
 
             background: #0f1229;
+
             padding: 30px 20px;
         }
 
+
+        /* BACKGROUND SHAPES */
+
         .auth-shape {
             position: absolute;
+
             border-radius: 50%;
+
             filter: blur(60px);
+
             opacity: 0.55;
+
             z-index: 0;
         }
+
 
         .shape-1 {
             width: 420px;
@@ -174,8 +248,14 @@
             top: -120px;
             left: -100px;
 
-            background: radial-gradient(circle, #7c3aed, transparent 70%);
+            background:
+                radial-gradient(
+                    circle,
+                    #7c3aed,
+                    transparent 70%
+                );
         }
+
 
         .shape-2 {
             width: 480px;
@@ -184,32 +264,54 @@
             bottom: -150px;
             right: -120px;
 
-            background: radial-gradient(circle, #06b6d4, transparent 70%);
+            background:
+                radial-gradient(
+                    circle,
+                    #06b6d4,
+                    transparent 70%
+                );
         }
+
+
+        /* LOGIN CARD */
 
         .auth-card {
             position: relative;
+
             z-index: 1;
 
             width: 100%;
             max-width: 420px;
 
-            background: rgba(255, 255, 255, 0.97);
+            background: rgba(
+                255,
+                255,
+                255,
+                0.97
+            );
 
             padding: 44px 38px;
 
             border-radius: 22px;
 
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+            box-shadow:
+                0 25px 60px
+                rgba(0, 0, 0, 0.35);
         }
+
+
+        /* BRAND */
 
         .auth-brand {
             display: flex;
+
             align-items: center;
+
             gap: 12px;
 
             margin-bottom: 28px;
         }
+
 
         .auth-logo {
             width: 46px;
@@ -220,8 +322,10 @@
             border-radius: 10px;
         }
 
+
         .auth-brand h1 {
             font-size: 20px;
+
             font-weight: 800;
 
             color: #0f1229;
@@ -229,12 +333,17 @@
             margin: 0;
         }
 
+
+        /* HEADING */
+
         .auth-heading {
             margin-bottom: 28px;
         }
 
+
         .auth-heading h2 {
             font-size: 26px;
+
             font-weight: 700;
 
             color: #0f1229;
@@ -242,20 +351,64 @@
             margin: 0 0 6px;
         }
 
+
         .auth-heading p {
             color: #7b7f9e;
+
             font-size: 14px;
+
             margin: 0;
         }
+
+
+        /* ERROR MESSAGE */
+
+        .login-error-message {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 10px;
+
+            margin-bottom: 22px;
+
+            padding: 13px 14px;
+
+            background: #fff1f2;
+
+            border: 1px solid #fecdd3;
+
+            border-radius: 10px;
+
+            color: #be123c;
+
+            font-size: 13px;
+
+            line-height: 1.5;
+        }
+
+
+        .login-error-message i {
+            font-size: 17px;
+
+            margin-top: 1px;
+
+            flex-shrink: 0;
+        }
+
+
+        /* FORM FIELD */
 
         .auth-field {
             margin-bottom: 20px;
         }
 
+
         .auth-field label {
             display: block;
 
             font-size: 13px;
+
             font-weight: 600;
 
             color: #0f1229;
@@ -263,55 +416,77 @@
             margin-bottom: 7px;
         }
 
+
+        /* INPUT */
+
         .input-wrapper {
             position: relative;
 
             display: flex;
+
             align-items: center;
         }
 
+
         .input-icon {
             position: absolute;
+
             left: 15px;
 
             color: #9ca0c2;
+
             font-size: 16px;
 
             pointer-events: none;
         }
 
+
         .input-wrapper input {
             width: 100%;
+
             height: 50px;
 
             padding: 0 44px;
 
             border: 1.5px solid #e6e7f2;
+
             border-radius: 10px;
 
             font-size: 14px;
+
             color: #0f1229;
+
+            background: #ffffff;
 
             outline: none;
 
             transition: 0.2s;
         }
 
+
         .input-wrapper input:focus {
             border-color: #7c3aed;
 
-            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.10);
+            box-shadow:
+                0 0 0 4px
+                rgba(124, 58, 237, 0.10);
         }
+
 
         .input-wrapper input::placeholder {
             color: #b3b6cf;
         }
 
+
+        /* PASSWORD TOGGLE */
+
         .toggle-password {
             position: absolute;
+
             right: 15px;
 
             color: #9ca0c2;
+
             font-size: 16px;
 
             cursor: pointer;
@@ -319,13 +494,19 @@
             transition: 0.15s;
         }
 
+
         .toggle-password:hover {
             color: #7c3aed;
         }
 
+
+        /* OPTIONS */
+
         .auth-options {
             display: flex;
+
             align-items: center;
+
             justify-content: space-between;
 
             margin-bottom: 24px;
@@ -333,9 +514,12 @@
             font-size: 13px;
         }
 
+
         .remember-me {
             display: flex;
+
             align-items: center;
+
             gap: 7px;
 
             color: #6b6f8d;
@@ -343,53 +527,78 @@
             cursor: pointer;
         }
 
+
         .remember-me input {
             width: 15px;
+
             height: 15px;
 
             accent-color: #7c3aed;
         }
 
+
         .auth-options a {
             color: #7c3aed;
+
             font-weight: 600;
 
             text-decoration: none;
         }
 
+
         .auth-options a:hover {
             text-decoration: underline;
         }
 
+
+        /* LOGIN BUTTON */
+
         .auth-button {
             width: 100%;
+
             height: 50px;
 
             border: none;
+
             border-radius: 10px;
 
-            background: linear-gradient(135deg, #7c3aed, #4f46e5);
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #4f46e5
+                );
 
             color: white;
 
             font-size: 15px;
+
             font-weight: 700;
 
             cursor: pointer;
 
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             gap: 8px;
 
             transition: 0.2s;
         }
 
+
         .auth-button:hover {
             transform: translateY(-2px);
 
-            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.35);
+            box-shadow:
+                0 10px 25px
+                rgba(124, 58, 237, 0.35);
         }
+
+
+        /* REGISTER */
 
         .auth-footer-text {
             text-align: center;
@@ -397,11 +606,14 @@
             margin-top: 24px;
 
             color: #7b7f9e;
+
             font-size: 13px;
         }
 
+
         .auth-footer-text a {
             color: #7c3aed;
+
             font-weight: 600;
 
             text-decoration: none;
@@ -409,15 +621,20 @@
             margin-left: 4px;
         }
 
+
         .auth-footer-text a:hover {
             text-decoration: underline;
         }
+
+
+        /* MOBILE */
 
         @media (max-width: 480px) {
 
             .auth-card {
                 padding: 34px 24px;
             }
+
 
             .auth-heading h2 {
                 font-size: 22px;
@@ -431,25 +648,45 @@
     {{-- PASSWORD TOGGLE SCRIPT --}}
     <script>
 
-        document.querySelectorAll('.toggle-password').forEach(function (icon) {
+        document
+            .querySelectorAll('.toggle-password')
+            .forEach(function (icon) {
 
-            icon.addEventListener('click', function () {
+                icon.addEventListener('click', function () {
 
-                var input = document.getElementById(icon.dataset.target);
+                    var input = document.getElementById(
+                        icon.dataset.target
+                    );
 
-                if (input.type === 'password') {
-                    input.type = 'text';
-                    icon.classList.remove('bi-eye-slash');
-                    icon.classList.add('bi-eye');
-                } else {
-                    input.type = 'password';
-                    icon.classList.remove('bi-eye');
-                    icon.classList.add('bi-eye-slash');
-                }
+                    if (input.type === 'password') {
+
+                        input.type = 'text';
+
+                        icon.classList.remove(
+                            'bi-eye-slash'
+                        );
+
+                        icon.classList.add(
+                            'bi-eye'
+                        );
+
+                    } else {
+
+                        input.type = 'password';
+
+                        icon.classList.remove(
+                            'bi-eye'
+                        );
+
+                        icon.classList.add(
+                            'bi-eye-slash'
+                        );
+
+                    }
+
+                });
 
             });
-
-        });
 
     </script>
 

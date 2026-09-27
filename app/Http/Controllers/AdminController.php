@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\Budget;
+use App\Models\Adminannouncement;
 class AdminController extends Controller
 {
     
@@ -61,7 +62,7 @@ public function Allusers(){
 
 $users=User::all();
 
-return view('Allusers',compact('users'));
+return view('admin.Allusers',compact('users'));
 
 }
 
@@ -169,5 +170,73 @@ public function Deletebudget($id)
     return redirect('/allusersbudgets');
 
 }
+
+
+
+
+public function Addannouncementlogic(Request $request)
+{
+    $announcement = new Adminannouncement();
+    $announcement->Title = $request->Title;
+    $announcement->Message = $request->Message;
+    $announcement->Status = $request->Status;
+    $announcement->save();
+
+    return redirect('/addannouncement');
+
+}
+
+public function Allannouncements()
+{
+    $announcements = Adminannouncement::all();
+    return view('admin.Allannouncements', compact('announcements'));
+
+}
+
+public function Deleteannouncement($id)
+{
+    $announcement = Adminannouncement::findOrFail($id);
+    $announcement->delete();
+    return redirect('/allannouncements');
+
+}
+
+public function Editannouncement($id)
+{
+    $announcement = Adminannouncement::findOrFail($id);
+    return view('admin.Editannouncement', compact('announcement'));
+
+
+}
+
+public function Updateannouncement(Request $request, $id)
+{
+    $announcement = Adminannouncement::findOrFail($id);
+    $announcement->Title = $request->Title;
+    $announcement->Message = $request->Message;
+    $announcement->Status = $request->Status;
+    $announcement->save();
+    return redirect('/allannouncements');
+
+
+}
+
+public function Deactivateannouncement($id)
+{
+    $announcement = Adminannouncement::findOrFail($id);
+    $announcement->Status = false;
+    $announcement->save();
+    return redirect('/allannouncements');
+
+}
+public function Activateannouncement($id)
+{
+    $announcement = Adminannouncement::findOrFail($id);
+    $announcement->Status = true;
+    $announcement->save();
+    return redirect('/allannouncements');
+
+}
+
 
 }

@@ -20,9 +20,7 @@
     </title>
 
 
-    {{-- =========================================================
-        GOOGLE FONT
-    ========================================================== --}}
+    {{-- GOOGLE FONT --}}
 
     <link
         rel="preconnect"
@@ -32,7 +30,6 @@
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
-        crossorigin
     >
 
     <link
@@ -41,9 +38,7 @@
     >
 
 
-    {{-- =========================================================
-        FONT AWESOME
-    ========================================================== --}}
+    {{-- FONT AWESOME --}}
 
     <link
         rel="stylesheet"
@@ -51,9 +46,7 @@
     >
 
 
-    {{-- =========================================================
-        BOOTSTRAP
-    ========================================================== --}}
+    {{-- BOOTSTRAP --}}
 
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -61,17 +54,16 @@
     >
 
 
-    {{-- =========================================================
-        ADMIN CSS
-        Cache busted automatically
-    ========================================================== --}}
+    {{-- ADMIN CSS --}}
 
     @php
+
         $adminCssPath = public_path('assets/css/admin.css');
 
         $adminCssVersion = file_exists($adminCssPath)
             ? filemtime($adminCssPath)
             : time();
+
     @endphp
 
     <link
@@ -85,12 +77,13 @@
 <body>
 
 
-<div class="admin-wrapper" id="adminWrapper">
+<div
+    class="admin-wrapper"
+    id="adminWrapper"
+>
 
 
-    {{-- =========================================================
-        MOBILE SIDEBAR OVERLAY
-    ========================================================== --}}
+    {{-- MOBILE SIDEBAR OVERLAY --}}
 
     <div
         class="sidebar-overlay"
@@ -98,16 +91,17 @@
     ></div>
 
 
-    {{-- =========================================================
+    {{-- =====================================================
         SIDEBAR
-    ========================================================== --}}
+    ====================================================== --}}
 
-    <aside class="admin-sidebar" id="adminSidebar">
+    <aside
+        class="admin-sidebar"
+        id="adminSidebar"
+    >
 
 
-        {{-- =====================================================
-            SIDEBAR BRAND
-        ====================================================== --}}
+        {{-- BRAND --}}
 
         <div class="sidebar-brand">
 
@@ -122,7 +116,9 @@
                 <div class="brand-text">
 
                     <span class="brand-name">
+
                         Campus<span>Coin</span>
+
                     </span>
 
                     <small>
@@ -136,9 +132,7 @@
         </div>
 
 
-        {{-- =====================================================
-            SIDEBAR NAVIGATION
-        ====================================================== --}}
+        {{-- SIDEBAR NAVIGATION --}}
 
         <nav class="sidebar-nav">
 
@@ -164,16 +158,18 @@
             </a>
 
 
-            {{-- CATALOG --}}
+            {{-- MANAGEMENT --}}
 
             <div class="nav-section-title">
-                CATALOG
+                MANAGEMENT
             </div>
 
 
+            {{-- CATEGORIES --}}
+
             <a
                 href="{{ url('/allcategories') }}"
-                class="sidebar-link {{ request()->is('admin/categories*') ? 'active' : '' }}"
+                class="sidebar-link {{ request()->is('allcategories') || request()->is('addcategory') || request()->is('editcategory*') ? 'active' : '' }}"
             >
 
                 <i class="fa-solid fa-layer-group"></i>
@@ -185,12 +181,14 @@
             </a>
 
 
+            {{-- USERS --}}
+
             <a
                 href="{{ url('/allusers') }}"
-                class="sidebar-link {{ request()->is('admin/products*') ? 'active' : '' }}"
+                class="sidebar-link {{ request()->is('allusers') || request()->is('deactivateuser*') || request()->is('activateuser*') || request()->is('deleteuser*') ? 'active' : '' }}"
             >
 
-                <i class="fa-solid fa-box-open"></i>
+                <i class="fa-solid fa-users"></i>
 
                 <span>
                     Users
@@ -199,69 +197,64 @@
             </a>
 
 
-            {{-- SALES --}}
-
-            <div class="nav-section-title">
-                SALES
-            </div>
-
+            {{-- TRANSACTIONS --}}
 
             <a
                 href="{{ url('/alltransactions') }}"
-                class="sidebar-link {{ request()->is('admin/orders*') ? 'active' : '' }}"
+                class="sidebar-link {{ request()->is('alltransactions') || request()->is('addtransaction') || request()->is('edittransaction*') ? 'active' : '' }}"
             >
 
-                <i class="fa-solid fa-cart-shopping"></i>
+                <i class="fa-solid fa-money-bill-transfer"></i>
 
                 <span>
                     Transactions
                 </span>
 
-                <span class="sidebar-link-badge">
-                    3
-                </span>
-
             </a>
 
+
+            {{-- BUDGETS --}}
 
             <a
                 href="{{ url('/allusersbudgets') }}"
-                class="sidebar-link {{ request()->is('admin/customers*') ? 'active' : '' }}"
+                class="sidebar-link {{ request()->is('allusersbudgets') || request()->is('deleteuserbudget*') ? 'active' : '' }}"
             >
 
-                <i class="fa-solid fa-users"></i>
+                <i class="fa-solid fa-wallet"></i>
 
                 <span>
-                    Customers
+                    User Budgets
                 </span>
 
             </a>
 
 
-            {{-- MANAGEMENT --}}
+            {{-- ANNOUNCEMENTS --}}
+
+            <a
+                href="{{ url('/allannouncements') }}"
+                class="sidebar-link {{ request()->is('allannouncements') || request()->is('addannouncement') || request()->is('editannouncement*') || request()->is('deleteannouncement*') || request()->is('activateannouncement*') || request()->is('deactivateannouncement*') ? 'active' : '' }}"
+            >
+
+                <i class="fa-solid fa-bullhorn"></i>
+
+                <span>
+                    Announcements
+                </span>
+
+            </a>
+
+
+            {{-- REPORTS --}}
 
             <div class="nav-section-title">
-                MANAGEMENT
+                ANALYTICS
             </div>
 
 
             <a
-                href="{{ url('') }}"
-                class="sidebar-link {{ request()->is('admin/inventory*') ? 'active' : '' }}"
-            >
-
-                <i class="fa-solid fa-warehouse"></i>
-
-                <span>
-                    Inventory
-                </span>
-
-            </a>
-
-
-            <a
-                href="{{ url('') }}"
-                class="sidebar-link {{ request()->is('admin/reports*') ? 'active' : '' }}"
+                href="{{ url('/alltransactions') }}"
+                class="sidebar-link"
             >
 
                 <i class="fa-solid fa-chart-column"></i>
@@ -280,8 +273,10 @@
             </div>
 
 
+            {{-- PROFILE --}}
+
             <a
-                href="{{ url('') }}"
+                href="{{ url('/admin/profile') }}"
                 class="sidebar-link {{ request()->is('admin/profile*') ? 'active' : '' }}"
             >
 
@@ -294,8 +289,10 @@
             </a>
 
 
+            {{-- SETTINGS --}}
+
             <a
-                href="{{ url('') }}"
+                href="{{ url('/admin/settings') }}"
                 class="sidebar-link {{ request()->is('admin/settings*') ? 'active' : '' }}"
             >
 
@@ -316,6 +313,7 @@
         ====================================================== --}}
 
         <div class="sidebar-bottom">
+
 
             <div class="sidebar-user">
 
@@ -344,6 +342,8 @@
             </div>
 
 
+            {{-- LOGOUT --}}
+
             <form
                 action="{{ url('/logout') }}"
                 method="POST"
@@ -367,26 +367,31 @@
 
             </form>
 
+
         </div>
+
 
     </aside>
 
 
-    {{-- =========================================================
+    {{-- =====================================================
         MAIN AREA
-    ========================================================== --}}
+    ====================================================== --}}
 
-    <div class="admin-main" id="adminMain">
+    <div
+        class="admin-main"
+        id="adminMain"
+    >
 
 
-        {{-- =====================================================
+        {{-- =================================================
             NAVBAR
-        ====================================================== --}}
+        ================================================== --}}
 
         <header class="admin-navbar">
 
 
-            {{-- LEFT --}}
+            {{-- LEFT SIDE --}}
 
             <div class="navbar-left">
 
@@ -420,16 +425,17 @@
                     <p>
                         @yield(
                             'page-description',
-                            'Manage your CampusCoin platform'
+                            'Manage your CampusCoin student finance platform'
                         )
                     </p>
 
                 </div>
 
+
             </div>
 
 
-            {{-- RIGHT --}}
+            {{-- RIGHT SIDE --}}
 
             <div class="navbar-right">
 
@@ -497,16 +503,17 @@
                         id="notifMenu"
                     >
 
+
                         <div class="notif-menu-header">
 
                             <div>
 
                                 <strong>
-                                    Notifications
+                                    CampusCoin Updates
                                 </strong>
 
                                 <span>
-                                    Stay updated with CampusCoin
+                                    Recent platform activity
                                 </span>
 
                             </div>
@@ -521,28 +528,33 @@
                         <div class="notif-list">
 
 
+                            {{-- NEW TRANSACTION --}}
+
                             <a
-                                href="{{ url('/admin/orders') }}"
+                                href="{{ url('/alltransactions') }}"
                                 class="notif-item unread"
                             >
 
                                 <div class="notif-item-icon notif-icon-success">
 
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    <i class="fa-solid fa-money-bill-transfer"></i>
 
                                 </div>
 
                                 <div class="notif-item-content">
 
                                     <p>
+
                                         <strong>
                                             New transaction
                                         </strong>
+
                                         was recorded
+
                                     </p>
 
                                     <span>
-                                        2 minutes ago
+                                        Recent activity
                                     </span>
 
                                 </div>
@@ -552,28 +564,33 @@
                             </a>
 
 
+                            {{-- BUDGET --}}
+
                             <a
-                                href="{{ url('/admin/products') }}"
+                                href="{{ url('/allusersbudgets') }}"
                                 class="notif-item unread"
                             >
 
                                 <div class="notif-item-icon notif-icon-warning">
 
-                                    <i class="fa-solid fa-box"></i>
+                                    <i class="fa-solid fa-wallet"></i>
 
                                 </div>
 
                                 <div class="notif-item-content">
 
                                     <p>
+
                                         <strong>
-                                            Budget alert:
+                                            Budget activity
                                         </strong>
-                                        User nearing limit
+
+                                        requires review
+
                                     </p>
 
                                     <span>
-                                        1 hour ago
+                                        Recent activity
                                     </span>
 
                                 </div>
@@ -583,28 +600,33 @@
                             </a>
 
 
+                            {{-- NEW USER --}}
+
                             <a
-                                href="{{ url('/admin/customers') }}"
+                                href="{{ url('/allusers') }}"
                                 class="notif-item unread"
                             >
 
                                 <div class="notif-item-icon notif-icon-info">
 
-                                    <i class="fa-solid fa-user"></i>
+                                    <i class="fa-solid fa-user-plus"></i>
 
                                 </div>
 
                                 <div class="notif-item-content">
 
                                     <p>
+
                                         <strong>
-                                            New student
+                                            Student account
                                         </strong>
-                                        registered
+
+                                        activity detected
+
                                     </p>
 
                                     <span>
-                                        3 hours ago
+                                        Recent activity
                                     </span>
 
                                 </div>
@@ -614,29 +636,33 @@
                             </a>
 
 
+                            {{-- CATEGORY --}}
+
                             <a
-                                href="{{ url('/admin/orders') }}"
+                                href="{{ url('/allcategories') }}"
                                 class="notif-item"
                             >
 
                                 <div class="notif-item-icon notif-icon-primary">
 
-                                    <i class="fa-solid fa-truck"></i>
+                                    <i class="fa-solid fa-layer-group"></i>
 
                                 </div>
 
                                 <div class="notif-item-content">
 
                                     <p>
-                                        Category
+
                                         <strong>
-                                            "Allowance"
+                                            Category
                                         </strong>
-                                        was updated
+
+                                        management update
+
                                     </p>
 
                                     <span>
-                                        Yesterday
+                                        Recent activity
                                     </span>
 
                                 </div>
@@ -650,15 +676,16 @@
 
 
                         <a
-                            href="{{ url('/admin/notifications') }}"
+                            href="{{ url('/allannouncements') }}"
                             class="notif-menu-footer"
                         >
 
-                            View all notifications
+                            View announcements
 
                             <i class="fa-solid fa-arrow-right"></i>
 
                         </a>
+
 
                     </div>
 
@@ -682,7 +709,7 @@
                 <div class="navbar-divider"></div>
 
 
-                {{-- USER --}}
+                {{-- USER DROPDOWN --}}
 
                 <div
                     class="admin-dropdown navbar-user"
@@ -726,6 +753,7 @@
                         class="admin-dropdown-menu navbar-user-menu"
                         id="userMenu"
                     >
+
 
                         <div class="user-menu-header">
 
@@ -790,7 +818,7 @@
                             <i class="fa-solid fa-arrow-up-right-from-square"></i>
 
                             <span>
-                                View Site
+                                View Login Page
                             </span>
 
                         </a>
@@ -824,16 +852,19 @@
 
                     </div>
 
+
                 </div>
 
+
             </div>
+
 
         </header>
 
 
-        {{-- =====================================================
+        {{-- =================================================
             PAGE CONTENT
-        ====================================================== --}}
+        ================================================== --}}
 
         <main class="admin-content">
 
@@ -961,9 +992,7 @@
             @endif
 
 
-            {{-- =================================================
-                PAGE CONTENT
-            ================================================== --}}
+            {{-- PAGE CONTENT --}}
 
             @yield('content')
 
@@ -971,9 +1000,9 @@
         </main>
 
 
-        {{-- =====================================================
+        {{-- =================================================
             FOOTER
-        ====================================================== --}}
+        ================================================== --}}
 
         <footer class="admin-footer">
 
@@ -994,17 +1023,21 @@
 
                 </div>
 
+
                 <span class="footer-separator">
                     •
                 </span>
+
 
                 <span>
                     Admin Panel
                 </span>
 
+
                 <span class="footer-separator">
                     •
                 </span>
+
 
                 <span class="footer-version">
                     v1.0.0
@@ -1019,10 +1052,11 @@
                     © {{ date('Y') }} CampusCoin
                 </span>
 
+
                 <span class="footer-made">
-                    Crafted with
-                    <i class="fa-solid fa-heart"></i>
-                    for smarter student budgeting
+
+                    Crafted for smarter student budgeting
+
                 </span>
 
 
@@ -1038,6 +1072,7 @@
 
                 </button>
 
+
             </div>
 
 
@@ -1046,22 +1081,18 @@
 
     </div>
 
+
 </div>
 
 
-{{-- =========================================================
-    BOOTSTRAP JS
-========================================================= --}}
+{{-- BOOTSTRAP JS --}}
 
 <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-</script>
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+></script>
 
 
-{{-- =========================================================
-    ADMIN JAVASCRIPT
-    Everything stays inside this layout
-========================================================= --}}
+{{-- ADMIN JAVASCRIPT --}}
 
 <script>
 
@@ -1074,122 +1105,156 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const root = document.documentElement;
 
-    const wrapper = document.getElementById('adminWrapper');
+    const wrapper =
+        document.getElementById('adminWrapper');
 
-    const sidebar = document.getElementById('adminSidebar');
+    const sidebar =
+        document.getElementById('adminSidebar');
 
-    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarToggle =
+        document.getElementById('sidebarToggle');
 
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const sidebarOverlay =
+        document.getElementById('sidebarOverlay');
 
-    const themeToggle = document.getElementById('themeToggle');
+    const themeToggle =
+        document.getElementById('themeToggle');
 
-    const notifBtn = document.getElementById('notifBtn');
+    const notifBtn =
+        document.getElementById('notifBtn');
 
-    const notifMenu = document.getElementById('notifMenu');
+    const notifMenu =
+        document.getElementById('notifMenu');
 
-    const notifDropdown = document.getElementById('notifDropdown');
+    const notifDropdown =
+        document.getElementById('notifDropdown');
 
-    const userBtn = document.getElementById('userBtn');
+    const userBtn =
+        document.getElementById('userBtn');
 
-    const userMenu = document.getElementById('userMenu');
+    const userMenu =
+        document.getElementById('userMenu');
 
-    const userDropdown = document.getElementById('userDropdown');
+    const userDropdown =
+        document.getElementById('userDropdown');
 
-    const backToTop = document.getElementById('footerBackToTop');
+    const backToTop =
+        document.getElementById('footerBackToTop');
 
-    const quickSearch = document.getElementById('adminQuickSearch');
+    const quickSearch =
+        document.getElementById('adminQuickSearch');
 
 
     /* =========================================================
        THEME
     ========================================================== */
 
-    const savedTheme = localStorage.getItem('adminTheme');
+    const savedTheme =
+        localStorage.getItem('adminTheme');
+
 
     if (savedTheme === 'dark') {
 
-        root.setAttribute('data-theme', 'dark');
+        root.setAttribute(
+            'data-theme',
+            'dark'
+        );
 
     }
 
 
-    themeToggle?.addEventListener('click', function () {
+    themeToggle?.addEventListener(
+        'click',
+        function () {
 
-        const isDark =
-            root.getAttribute('data-theme') === 'dark';
+            const isDark =
+                root.getAttribute('data-theme') === 'dark';
 
 
-        if (isDark) {
+            if (isDark) {
 
-            root.removeAttribute('data-theme');
+                root.removeAttribute(
+                    'data-theme'
+                );
 
-            localStorage.setItem(
-                'adminTheme',
-                'light'
-            );
+                localStorage.setItem(
+                    'adminTheme',
+                    'light'
+                );
 
-        } else {
+            } else {
 
-            root.setAttribute(
-                'data-theme',
-                'dark'
-            );
+                root.setAttribute(
+                    'data-theme',
+                    'dark'
+                );
 
-            localStorage.setItem(
-                'adminTheme',
-                'dark'
-            );
+                localStorage.setItem(
+                    'adminTheme',
+                    'dark'
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
     /* =========================================================
-       SIDEBAR DESKTOP COLLAPSE
+       SIDEBAR
     ========================================================== */
 
-    sidebarToggle?.addEventListener('click', function () {
+    sidebarToggle?.addEventListener(
+        'click',
+        function () {
 
-        if (window.innerWidth <= 992) {
+            if (window.innerWidth <= 992) {
 
-            sidebar?.classList.toggle('mobile-open');
+                sidebar?.classList.toggle(
+                    'mobile-open'
+                );
 
-            sidebarOverlay?.classList.toggle('show');
+                sidebarOverlay?.classList.toggle(
+                    'show'
+                );
 
-            document.body.classList.toggle(
-                'sidebar-open'
-            );
+                document.body.classList.toggle(
+                    'sidebar-open'
+                );
 
-        } else {
+            } else {
 
-            wrapper?.classList.toggle(
-                'sidebar-collapsed'
-            );
-
-            const collapsed =
-                wrapper?.classList.contains(
+                wrapper?.classList.toggle(
                     'sidebar-collapsed'
                 );
 
-            localStorage.setItem(
-                'adminSidebarCollapsed',
-                collapsed ? 'true' : 'false'
-            );
+
+                const collapsed =
+                    wrapper?.classList.contains(
+                        'sidebar-collapsed'
+                    );
+
+
+                localStorage.setItem(
+                    'adminSidebarCollapsed',
+                    collapsed ? 'true' : 'false'
+                );
+
+            }
 
         }
-
-    });
+    );
 
 
     /* =========================================================
-       RESTORE DESKTOP SIDEBAR
+       RESTORE SIDEBAR
     ========================================================== */
 
     if (
         window.innerWidth > 992 &&
-        localStorage.getItem('adminSidebarCollapsed') === 'true'
+        localStorage.getItem(
+            'adminSidebarCollapsed'
+        ) === 'true'
     ) {
 
         wrapper?.classList.add(
@@ -1200,7 +1265,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* =========================================================
-       CLOSE MOBILE SIDEBAR
+       MOBILE SIDEBAR CLOSE
     ========================================================== */
 
     function closeMobileSidebar() {
@@ -1225,10 +1290,6 @@ document.addEventListener('DOMContentLoaded', function () {
         closeMobileSidebar
     );
 
-
-    /* =========================================================
-       CLOSE SIDEBAR WHEN LINK IS CLICKED ON MOBILE
-    ========================================================== */
 
     document
         .querySelectorAll('.sidebar-link')
@@ -1269,7 +1330,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     /* =========================================================
-       NOTIFICATION DROPDOWN
+       NOTIFICATIONS
     ========================================================== */
 
     notifBtn?.addEventListener(
@@ -1278,13 +1339,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
             event.stopPropagation();
 
-            notifMenu?.classList.toggle('show');
+
+            notifMenu?.classList.toggle(
+                'show'
+            );
+
 
             notifDropdown?.classList.toggle(
                 'menu-open'
             );
 
-            userMenu?.classList.remove('show');
+
+            userMenu?.classList.remove(
+                'show'
+            );
+
 
             userDropdown?.classList.remove(
                 'menu-open'
@@ -1314,13 +1383,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
             event.stopPropagation();
 
-            userMenu?.classList.toggle('show');
+
+            userMenu?.classList.toggle(
+                'show'
+            );
+
 
             userDropdown?.classList.toggle(
                 'menu-open'
             );
 
-            notifMenu?.classList.remove('show');
+
+            notifMenu?.classList.remove(
+                'show'
+            );
+
 
             notifDropdown?.classList.remove(
                 'menu-open'
@@ -1348,13 +1425,17 @@ document.addEventListener('DOMContentLoaded', function () {
         'click',
         function () {
 
-            notifMenu?.classList.remove('show');
+            notifMenu?.classList.remove(
+                'show'
+            );
 
             notifDropdown?.classList.remove(
                 'menu-open'
             );
 
-            userMenu?.classList.remove('show');
+            userMenu?.classList.remove(
+                'show'
+            );
 
             userDropdown?.classList.remove(
                 'menu-open'
@@ -1372,13 +1453,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (!backToTop) return;
 
+
         if (window.scrollY > 250) {
 
-            backToTop.classList.add('show');
+            backToTop.classList.add(
+                'show'
+            );
 
         } else {
 
-            backToTop.classList.remove('show');
+            backToTop.classList.remove(
+                'show'
+            );
 
         }
 
@@ -1432,6 +1518,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }
 
+
             if (
                 event.key === 'Escape'
             ) {
@@ -1456,30 +1543,34 @@ document.addEventListener('DOMContentLoaded', function () {
        AUTO HIDE ALERTS
     ========================================================== */
 
-    setTimeout(function () {
+    setTimeout(
+        function () {
 
-        document
-            .querySelectorAll(
-                '.admin-alert'
-            )
-            .forEach(function (alert) {
+            document
+                .querySelectorAll(
+                    '.admin-alert'
+                )
+                .forEach(function (alert) {
 
-                alert.classList.add(
-                    'alert-hiding'
-                );
+                    alert.classList.add(
+                        'alert-hiding'
+                    );
 
-                setTimeout(
-                    function () {
 
-                        alert.remove();
+                    setTimeout(
+                        function () {
 
-                    },
-                    350
-                );
+                            alert.remove();
 
-            });
+                        },
+                        350
+                    );
 
-    }, 6000);
+                });
+
+        },
+        6000
+    );
 
 
 });

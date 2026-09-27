@@ -7,13 +7,13 @@
 
             {{-- CAMPUSCOIN LOGO --}}
             <div class="logo campuscoin-logo">
-            
-                   <img
-    src="{{ asset('assets/images/logo/img.png') }}"
-    alt="CampusCoin"
-    style="width: 200px; height: 80px; object-fit: cover;"
->
-            
+
+                <img
+                    src="{{ asset('assets/images/logo/img.png') }}"
+                    alt="CampusCoin"
+                    style="width: 200px; height: 80px; object-fit: cover;"
+                >
+
             </div>
 
             {{-- MOBILE SIDEBAR CLOSE --}}
@@ -37,7 +37,7 @@
             {{-- DASHBOARD --}}
             <li class="sidebar-item">
 
-                <a href="/frmt" class="sidebar-link">
+                <a href="/userdashboard" class="sidebar-link">
 
                     <i class="bi bi-grid-fill"></i>
 
@@ -62,28 +62,42 @@
 
                 <ul class="submenu">
 
-                    {{-- INCOME --}}
+                    {{-- ALL TRANSACTIONS --}}
                     <li class="submenu-item">
 
-                        <a href="/income" class="submenu-link">
+                        <a href="/useralltransactions" class="submenu-link">
 
-                            <i class="bi bi-arrow-down-circle"></i>
+                            <i class="bi bi-list-ul"></i>
 
-                            <span>Income</span>
+                            <span>All Transactions</span>
 
                         </a>
 
                     </li>
 
 
-                    {{-- EXPENSES --}}
+                    {{-- ADD TRANSACTION --}}
                     <li class="submenu-item">
 
-                        <a href="/expenses" class="submenu-link">
+                        <a href="/useraddtransaction" class="submenu-link">
 
-                            <i class="bi bi-arrow-up-circle"></i>
+                            <i class="bi bi-plus-circle"></i>
 
-                            <span>Expenses</span>
+                            <span>Add Transaction</span>
+
+                        </a>
+
+                    </li>
+
+
+                    {{-- SCHEDULED TRANSACTIONS --}}
+                    <li class="submenu-item">
+
+                        <a href="/userallscheduledtransactions" class="submenu-link">
+
+                            <i class="bi bi-calendar-event"></i>
+
+                            <span>Scheduled Transactions</span>
 
                         </a>
 
@@ -97,7 +111,7 @@
             {{-- CATEGORIES --}}
             <li class="sidebar-item">
 
-                <a href="/categories" class="sidebar-link">
+                <a href="/userallcategories" class="sidebar-link">
 
                     <i class="bi bi-tags-fill"></i>
 
@@ -108,24 +122,10 @@
             </li>
 
 
-            {{-- REPORTS --}}
-            <li class="sidebar-item">
-
-                <a href="/reports" class="sidebar-link">
-
-                    <i class="bi bi-bar-chart-fill"></i>
-
-                    <span>Reports</span>
-
-                </a>
-
-            </li>
-
-
             {{-- BUDGET GOALS --}}
             <li class="sidebar-item">
 
-                <a href="/budget-goals" class="sidebar-link">
+                <a href="/userallbudgets" class="sidebar-link">
 
                     <i class="bi bi-bullseye"></i>
 
@@ -136,14 +136,42 @@
             </li>
 
 
-            {{-- SAVING TIPS --}}
+            {{-- REPORTS --}}
             <li class="sidebar-item">
 
-                <a href="/saving-tips" class="sidebar-link">
+                <a href="/userreports" class="sidebar-link">
+
+                    <i class="bi bi-bar-chart-fill"></i>
+
+                    <span>Reports</span>
+
+                </a>
+
+            </li>
+
+
+            {{-- SAVING INSIGHTS --}}
+            <li class="sidebar-item">
+
+                <a href="/userinsights" class="sidebar-link">
 
                     <i class="bi bi-lightbulb-fill"></i>
 
-                    <span>Saving Tips</span>
+                    <span>Saving Insights</span>
+
+                </a>
+
+            </li>
+
+
+            {{-- ANNOUNCEMENTS --}}
+            <li class="sidebar-item">
+
+                <a href="/userallannouncements" class="sidebar-link">
+
+                    <i class="bi bi-megaphone-fill"></i>
+
+                    <span>Announcements</span>
 
                 </a>
 
@@ -225,18 +253,18 @@
 <style>
 
     /* Logo aur menu ka gap kam */
-.sidebar-wrapper .sidebar-header {
-    padding-bottom: 5px;
-}
+    .sidebar-wrapper .sidebar-header {
+        padding-bottom: 5px;
+    }
 
-.sidebar-wrapper .sidebar-menu {
-    margin-top: 0 !important;
-}
+    .sidebar-wrapper .sidebar-menu {
+        margin-top: 0 !important;
+    }
 
-.sidebar-wrapper .sidebar-menu .menu {
-    margin-top: 0 !important;
-    padding-top: 0 !important;
-}
+    .sidebar-wrapper .sidebar-menu .menu {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
 
 
     /* Logo Container */
@@ -257,13 +285,14 @@
     }
 
 
-   .campuscoin-logo img {
-    width: 150px;
-    height: 60px;
-    object-fit: contain;
-    display: block;
-    margin-top: 15px;
-}
+    /* Logo Image */
+    .campuscoin-logo img {
+        width: 150px;
+        height: 60px;
+        object-fit: contain;
+        display: block;
+        margin-top: 15px;
+    }
 
 
     /* Logout Button */

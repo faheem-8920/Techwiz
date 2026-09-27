@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Edit Budget | Campus Coin</title>
+    <title>Edit Scheduled Transaction | Campus Coin</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
@@ -32,7 +32,7 @@
             padding: 45px 15px;
         }
 
-        .budget-container {
+        .scheduled-container {
             max-width: 760px;
             margin: auto;
         }
@@ -52,12 +52,12 @@
             color: #0d6efd;
         }
 
-        .budget-card {
+        .scheduled-card {
             background: white;
             border-radius: 22px;
             overflow: hidden;
             border: 1px solid #e6ebf0;
-            box-shadow: 0 15px 45px rgba(15,23,42,0.10);
+            box-shadow: 0 15px 45px rgba(15, 23, 42, 0.10);
         }
 
         .form-header {
@@ -74,7 +74,7 @@
             width: 190px;
             height: 190px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.07);
+            background: rgba(255, 255, 255, 0.07);
             right: -65px;
             top: -75px;
         }
@@ -83,7 +83,7 @@
             width: 55px;
             height: 55px;
             border-radius: 14px;
-            background: rgba(255,255,255,0.14);
+            background: rgba(255, 255, 255, 0.14);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -153,7 +153,7 @@
         .form-control:focus,
         .form-select:focus {
             border-color: #1769aa;
-            box-shadow: 0 0 0 4px rgba(23,105,170,0.10);
+            box-shadow: 0 0 0 4px rgba(23, 105, 170, 0.10);
         }
 
         .input-group-text {
@@ -176,11 +176,11 @@
             margin-top: 8px;
         }
 
-        .current-budget {
+        .current-scheduled {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            padding: 16px;
+            padding: 18px;
             margin-bottom: 25px;
         }
 
@@ -189,13 +189,19 @@
             font-size: 12px;
             text-transform: uppercase;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 7px;
         }
 
         .current-value {
             font-size: 21px;
             color: #0b3a66;
             font-weight: 700;
+        }
+
+        .current-details {
+            margin-top: 10px;
+            color: #64748b;
+            font-size: 13px;
         }
 
         .category-note {
@@ -232,7 +238,7 @@
         .update-btn:hover {
             color: white;
             transform: translateY(-1px);
-            box-shadow: 0 8px 18px rgba(11,58,102,0.20);
+            box-shadow: 0 8px 18px rgba(11, 58, 102, 0.20);
         }
 
         .error-box {
@@ -242,6 +248,17 @@
             padding: 13px 15px;
             border-radius: 10px;
             margin-bottom: 22px;
+        }
+
+        .frequency-badge {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 8px;
         }
 
         @media (max-width: 576px) {
@@ -281,35 +298,38 @@
 
 <div class="page-wrapper">
 
-    <div class="budget-container">
+    <div class="scheduled-container">
+
+        <!-- Back Navigation -->
 
         <div class="top-navigation">
 
-            <a href="{{ url('/userallbudgets') }}"
+            <a href="{{ url('/userallscheduledtransactions') }}"
                class="back-link">
 
                 <i class="fa-solid fa-arrow-left me-2"></i>
-                Back to Budgets
+
+                Back to Scheduled Transactions
 
             </a>
 
         </div>
 
 
-        <div class="budget-card">
+        <div class="scheduled-card">
 
             <!-- Header -->
 
             <div class="form-header">
 
                 <div class="header-icon">
-                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i class="fa-solid fa-calendar-days"></i>
                 </div>
 
-                <h2>Edit Budget</h2>
+                <h2>Edit Scheduled Transaction</h2>
 
                 <p>
-                    Update your budget category or spending limit.
+                    Update your recurring transaction details and schedule.
                 </p>
 
             </div>
@@ -323,7 +343,8 @@
 
                     <i class="fa-solid fa-circle-info me-2"></i>
 
-                    You can change the category and budget limit. Your existing transactions will remain unchanged.
+                    Update the details below. The schedule will continue using
+                    the new information you provide.
 
                 </div>
 
@@ -344,27 +365,52 @@
                 <div class="section-title">
 
                     <i class="fa-solid fa-sliders me-2"></i>
-                    Budget Details
+
+                    Scheduled Transaction Details
 
                 </div>
 
 
-                <div class="current-budget">
+                <!-- Current Transaction -->
+
+                <div class="current-scheduled">
 
                     <div class="current-label">
-                        Current Budget Limit
+                        Current Scheduled Amount
                     </div>
 
                     <div class="current-value">
 
-                        PKR {{ number_format($budget->LimitAmount, 2) }}
+                        PKR {{ number_format($scheduled->Amount, 2) }}
+
+                    </div>
+
+                    <div class="current-details">
+
+                        <i class="fa-solid fa-calendar me-1"></i>
+
+                        Start Date:
+                        {{ $scheduled->StartDate }}
+
+                        <br>
+
+                        <i class="fa-solid fa-repeat me-1"></i>
+
+                        Frequency:
+                        {{ $scheduled->Frequency }}
+
+                        <span class="frequency-badge">
+                            Active Schedule
+                        </span>
 
                     </div>
 
                 </div>
 
 
-                <form action="{{ url('/userupdatebudget/'.$budget->id) }}"
+                <!-- Update Form -->
+
+                <form action="{{ url('/userupdatescheduledtransaction/'.$scheduled->id) }}"
                       method="POST">
 
                     @csrf
@@ -377,7 +423,8 @@
                         <label class="form-label">
 
                             <i class="fa-solid fa-layer-group"></i>
-                            Expense Category
+
+                            Category
 
                         </label>
 
@@ -386,15 +433,21 @@
                                 required>
 
                             <option value="">
-                                Select expense category
+
+                                Select category
+
                             </option>
 
                             @foreach($categories as $category)
 
                                 <option value="{{ $category->id }}"
-                                    {{ $budget->category_id == $category->id ? 'selected' : '' }}>
+                                    {{ $scheduled->category_id == $category->id ? 'selected' : '' }}>
 
                                     {{ $category->Name }}
+
+                                    @if(isset($category->type))
+                                        - {{ $category->type }}
+                                    @endif
 
                                 </option>
 
@@ -406,7 +459,8 @@
 
                             <i class="fa-solid fa-circle-info me-1"></i>
 
-                            Select the expense category where this budget should be applied.
+                            Select the category that should be used whenever
+                            this scheduled transaction is generated.
 
                         </div>
 
@@ -420,7 +474,8 @@
                         <label class="form-label">
 
                             <i class="fa-solid fa-money-bill-wave"></i>
-                            Budget Limit
+
+                            Amount
 
                         </label>
 
@@ -431,19 +486,131 @@
                             </span>
 
                             <input type="number"
-                                   name="LimitAmount"
+                                   name="Amount"
                                    class="form-control"
-                                   value="{{ $budget->LimitAmount }}"
+                                   value="{{ $scheduled->Amount }}"
                                    min="1"
                                    step="0.01"
-                                   placeholder="Enter budget amount"
+                                   placeholder="Enter transaction amount"
                                    required>
 
                         </div>
 
                         <div class="help-text">
 
-                            Enter the maximum amount you want to spend for this category.
+                            Enter the amount that will be automatically added
+                            whenever this schedule runs.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Description -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            <i class="fa-solid fa-align-left"></i>
+
+                            Description
+
+                        </label>
+
+                        <input type="text"
+                               name="Description"
+                               class="form-control"
+                               value="{{ $scheduled->Description }}"
+                               placeholder="Enter transaction description">
+
+                        <div class="help-text">
+
+                            Example: Monthly hostel rent, weekly transport,
+                            monthly subscription, etc.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Start Date -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            <i class="fa-solid fa-calendar-plus"></i>
+
+                            Start Date
+
+                        </label>
+
+                        <input type="date"
+                               name="StartDate"
+                               class="form-control"
+                               value="{{ $scheduled->StartDate }}"
+                               required>
+
+                        <div class="help-text">
+
+                            The schedule will start from this date.
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Frequency -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            <i class="fa-solid fa-repeat"></i>
+
+                            Frequency
+
+                        </label>
+
+                        <select name="Frequency"
+                                class="form-select"
+                                required>
+
+                            <option value="Daily"
+                                {{ $scheduled->Frequency == 'Daily' ? 'selected' : '' }}>
+
+                                Daily
+
+                            </option>
+
+                            <option value="Weekly"
+                                {{ $scheduled->Frequency == 'Weekly' ? 'selected' : '' }}>
+
+                                Weekly
+
+                            </option>
+
+                            <option value="Monthly"
+                                {{ $scheduled->Frequency == 'Monthly' ? 'selected' : '' }}>
+
+                                Monthly
+
+                            </option>
+
+                            <option value="Yearly"
+                                {{ $scheduled->Frequency == 'Yearly' ? 'selected' : '' }}>
+
+                                Yearly
+
+                            </option>
+
+                        </select>
+
+                        <div class="help-text">
+
+                            Choose how frequently this transaction should be
+                            automatically created.
 
                         </div>
 
@@ -454,10 +621,11 @@
 
                     <div class="form-actions d-flex justify-content-between align-items-center gap-3">
 
-                        <a href="{{ url('/userallbudgets') }}"
+                        <a href="{{ url('/userallscheduledtransactions') }}"
                            class="btn btn-outline-secondary cancel-btn">
 
                             <i class="fa-solid fa-xmark me-1"></i>
+
                             Cancel
 
                         </a>
@@ -467,7 +635,8 @@
                                 class="update-btn">
 
                             <i class="fa-solid fa-floppy-disk me-1"></i>
-                            Update Budget
+
+                            Update Scheduled Transaction
 
                         </button>
 
