@@ -93,7 +93,7 @@
     <h2>All Categories</h2>
 
     <a href="{{ url('/useraddcategory') }}" class="add-button">
-        Add Category
+
     </a>
 
     <table>

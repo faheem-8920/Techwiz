@@ -96,6 +96,8 @@
         Add Category
     </a>
 
+    
+
     <table>
 
         <thead>

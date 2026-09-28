@@ -160,6 +160,7 @@ Route::middleware(['auth', 'role:student'])->group(function () {
         UserController::class,
         'Userdashboardanalytics'
     ]);
+    Route::get('/userdashboard', [UserController::class, 'Userdashboard']);
 
 
     Route::get('/useraddcategory', function () {
