@@ -1,182 +1,327 @@
 @extends('layouts.user')
 
 @section('content')
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Add Transaction</title>
+<div class="page-wrapper">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <div class="transaction-container">
 
-    <style>
-        body {
-            background: #f4f7fa;
-            font-family: Arial, sans-serif;
-        }
+        {{-- TOP NAVIGATION --}}
+        <div class="top-navigation">
 
-        .transaction-box {
-            max-width: 650px;
-            margin: 60px auto;
-            background: white;
-            padding: 35px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        }
+            <a href="{{ url('/useralltransactions') }}" class="back-dashboard">
 
-        .transaction-title {
-            color: #0b3a66;
-            font-weight: bold;
-            margin-bottom: 30px;
-            text-align: center;
-        }
+                <i class="fa-solid fa-arrow-left me-2"></i>
 
-        .form-label {
-            font-weight: 600;
-            color: #333;
-        }
+                Back to Transactions
 
-        .form-control,
-        .form-select {
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #1769aa;
-            box-shadow: 0 0 0 0.2rem rgba(23, 105, 170, 0.15);
-        }
-
-        .save-btn {
-            background: #0b3a66;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            width: 100%;
-            font-weight: bold;
-        }
-
-        .save-btn:hover {
-            background: #1769aa;
-        }
-
-        .back-btn {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #0b3a66;
-            text-decoration: none;
-        }
-
-        .back-btn:hover {
-            text-decoration: underline;
-        }
-    </style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <div class="transaction-box">
-
-        <h2 class="transaction-title">Add Transaction</h2>
-
-        <form action="{{ url('/addtransactionlogic') }}" method="POST">
-
-            @csrf
-
-            <!-- Category -->
-            <div class="mb-3">
-
-                <label class="form-label">Category</label>
-
-                <select name="category_id" class="form-select" required>
-
-                    <option value="">Select Category</option>
-
-                    @foreach($categories as $category)
-
-                        <option value="{{ $category->id }}">
-                            {{ $category->Name }} - {{ ucfirst($category->type) }}
-                        </option>
-
-                    @endforeach
-
-                </select>
-
-            </div>
-
-
-            <!-- Amount -->
-            <div class="mb-3">
-
-                <label class="form-label">Amount</label>
-
-                <input
-                    type="number"
-                    name="Amount"
-                    class="form-control"
-                    placeholder="Enter amount"
-                    min="0"
-                    step="0.01"
-                    required
-                >
-
-            </div>
-
-
-            <!-- Description -->
-            <div class="mb-3">
-
-                <label class="form-label">Description</label>
-
-                <textarea
-                    name="Description"
-                    class="form-control"
-                    rows="4"
-                    placeholder="Enter transaction description"
-                ></textarea>
-
-            </div>
-
-
-            <!-- Date -->
-            <div class="mb-4">
-
-                <label class="form-label">Date</label>
-
-                <input
-                    type="date"
-                    name="Date"
-                    class="form-control"
-                    required
-                >
-
-            </div>
-
-
-            <!-- Submit -->
-            <button type="submit" class="save-btn">
-                Save Transaction
-            </button>
-
-            <a href="{{ url('/dashboard') }}" class="back-btn">
-                Back to Dashboard
             </a>
 
-        </form>
+        </div>
+
+
+        {{-- MAIN CARD --}}
+        <div class="transaction-card">
+
+            {{-- HEADER --}}
+            <div class="transaction-header">
+
+                <div class="transaction-header-icon">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                </div>
+
+                <div>
+
+                    <h2>Add Transaction</h2>
+
+                    <p>
+                        Record your income or expenses and keep your finances organized.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {{-- FORM BODY --}}
+            <div class="transaction-form-body">
+
+                {{-- ERROR MESSAGE --}}
+                @if(session('error'))
+
+                    <div class="transaction-error">
+
+                        <i class="fa-solid fa-circle-exclamation"></i>
+
+                        <span>
+                            {{ session('error') }}
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                {{-- VALIDATION ERRORS --}}
+                @if($errors->any())
+
+                    <div class="transaction-error">
+
+                        <div>
+
+                            <strong>
+                                <i class="fa-solid fa-circle-exclamation me-1"></i>
+                                Please fix the following errors:
+                            </strong>
+
+                            <ul>
+
+                                @foreach($errors->all() as $error)
+
+                                    <li>
+                                        {{ $error }}
+                                    </li>
+
+                                @endforeach
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+
+                {{-- INFO BOX --}}
+                <div class="transaction-info-box">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    <div>
+
+                        <strong>Keep your records updated</strong>
+
+                        <span>
+                            Select the correct category and enter the amount,
+                            description, and date for this transaction.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-sliders me-2"></i>
+
+                    Transaction Information
+
+                </div>
+
+
+                <form action="{{ url('/useraddtransactionlogic') }}" method="POST">
+
+                    @csrf
+
+
+                    {{-- CATEGORY --}}
+                    <div class="transaction-form-group">
+
+                        <label class="transaction-label">
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                            Category
+
+                        </label>
+
+                        <select
+                            name="category_id"
+                            class="transaction-input transaction-select"
+                            required
+                        >
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            @foreach($categories as $category)
+
+                                <option
+                                    value="{{ $category->id }}"
+                                    {{ old('category_id') == $category->id ? 'selected' : '' }}
+                                >
+
+                                    {{ $category->Name }} -
+                                    {{ ucfirst($category->type) }}
+
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                        <div class="transaction-help">
+
+                            <i class="fa-solid fa-circle-info"></i>
+
+                            Select the category that matches this transaction.
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- AMOUNT --}}
+                    <div class="transaction-form-group">
+
+                        <label class="transaction-label">
+
+                            <i class="fa-solid fa-money-bill-wave"></i>
+
+                            Amount
+
+                        </label>
+
+                        <div class="input-group transaction-input-group">
+
+                            <span class="input-group-text">
+                                PKR
+                            </span>
+
+                            <input
+                                type="number"
+                                name="Amount"
+                                class="form-control"
+                                placeholder="Enter amount"
+                                min="0"
+                                step="0.01"
+                                value="{{ old('Amount') }}"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="transaction-help">
+
+                            <i class="fa-solid fa-circle-info"></i>
+
+                            Enter the amount for this transaction.
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- DESCRIPTION --}}
+                    <div class="transaction-form-group">
+
+                        <label class="transaction-label">
+
+                            <i class="fa-solid fa-align-left"></i>
+
+                            Description
+
+                        </label>
+
+                        <textarea
+                            name="Description"
+                            class="transaction-input transaction-textarea"
+                            rows="4"
+                            placeholder="Enter transaction description"
+                        >{{ old('Description') }}</textarea>
+
+                        <div class="transaction-help">
+
+                            <i class="fa-solid fa-pen"></i>
+
+                            Add a short note to identify this transaction later.
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- DATE --}}
+                    <div class="transaction-form-group">
+
+                        <label class="transaction-label">
+
+                            <i class="fa-regular fa-calendar"></i>
+
+                            Date
+
+                        </label>
+
+                        <input
+                            type="date"
+                            name="Date"
+                            class="transaction-input"
+                            value="{{ old('Date') }}"
+                            required
+                        >
+
+                        <div class="transaction-help">
+
+                            <i class="fa-solid fa-calendar-day"></i>
+
+                            Select the date on which this transaction occurred.
+
+                        </div>
+
+                    </div>
+
+
+                    {{-- ACTIONS --}}
+                    <div class="transaction-actions">
+
+                        <a
+                            href="{{ url('/useralltransactions') }}"
+                            class="transaction-cancel"
+                        >
+
+                            <i class="fa-solid fa-xmark"></i>
+
+                            Cancel
+
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="transaction-save"
+                        >
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            Save Transaction
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+                {{-- SECURITY NOTE --}}
+                <div class="transaction-security">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <span>
+                        Your transaction information is private and linked to your account.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
 </div>
-
-</body>
-</html>
-
 
 @endsection

@@ -177,7 +177,7 @@
                         </a>
 
 
-                        <a href="/reports"
+                        <a href="/userreports"
                            class="btn btn-outline-primary">
 
                             <i class="bi bi-bar-chart me-1"></i>

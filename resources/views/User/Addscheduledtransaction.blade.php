@@ -1,247 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.user')
 
-<head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Add Scheduled Transaction | Campus Coin</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <style>
-
-        body {
-            background: #f4f7fb;
-            font-family: Arial, sans-serif;
-            color: #1e293b;
-        }
-
-        .page-wrapper {
-            min-height: 100vh;
-            padding: 45px 15px;
-        }
-
-        .container-box {
-            max-width: 760px;
-            margin: auto;
-        }
-
-        .back-link {
-            color: #475569;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 18px;
-        }
-
-        .back-link:hover {
-            color: #1769aa;
-        }
-
-        .card-box {
-            background: white;
-            border-radius: 22px;
-            overflow: hidden;
-            box-shadow: 0 15px 40px rgba(15,23,42,0.10);
-            border: 1px solid #e5eaf0;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #0b3a66, #1769aa);
-            color: white;
-            padding: 35px;
-        }
-
-        .header-icon {
-            width: 55px;
-            height: 55px;
-            background: rgba(255,255,255,0.14);
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 23px;
-            margin-bottom: 15px;
-        }
-
-        .header h2 {
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
-
-        .header p {
-            margin: 0;
-            opacity: .85;
-        }
-
-        .body {
-            padding: 40px;
-        }
-
-        .form-label {
-            font-weight: 700;
-            color: #334155;
-            margin-bottom: 9px;
-        }
-
-        .form-label i {
-            color: #1769aa;
-            margin-right: 5px;
-        }
-
-        .form-control,
-        .form-select {
-            min-height: 52px;
-            border-radius: 11px;
-            border: 1px solid #dbe3ec;
-            padding: 12px 15px;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #1769aa;
-            box-shadow: 0 0 0 4px rgba(23,105,170,.10);
-        }
-
-        .input-group-text {
-            background: #f1f5f9;
-            border-color: #dbe3ec;
-            font-weight: 700;
-            color: #0b3a66;
-            border-radius: 11px 0 0 11px;
-        }
-
-        .input-group .form-control {
-            border-radius: 0 11px 11px 0;
-        }
-
-        .help {
-            font-size: 13px;
-            color: #64748b;
-            margin-top: 7px;
-        }
-
-        .info-box {
-            background: #eff6ff;
-            border: 1px solid #dbeafe;
-            border-left: 4px solid #1769aa;
-            padding: 15px;
-            border-radius: 10px;
-            color: #1e40af;
-            margin-bottom: 28px;
-            font-size: 14px;
-        }
-
-        .actions {
-            border-top: 1px solid #edf1f5;
-            margin-top: 30px;
-            padding-top: 25px;
-        }
-
-        .btn {
-            min-height: 50px;
-            border-radius: 10px;
-            padding: 0 22px;
-            font-weight: 700;
-        }
-
-        .save-btn {
-            background: linear-gradient(135deg, #0b3a66, #1769aa);
-            border: none;
-            color: white;
-        }
-
-        .save-btn:hover {
-            color: white;
-            transform: translateY(-1px);
-        }
-
-        @media(max-width:576px) {
-
-            .body {
-                padding: 25px 20px;
-            }
-
-            .header {
-                padding: 28px 22px;
-            }
-
-            .actions {
-                flex-direction: column;
-            }
-
-            .actions a,
-            .actions button {
-                width: 100%;
-            }
-        }
-
-    </style>
-
-</head>
-
-<body>
+@section('content')
 
 <div class="page-wrapper">
 
-    <div class="container-box">
+    <div class="scheduled-container">
 
-        <a href="{{ url('/userallscheduledtransactions') }}"
-           class="back-link">
+        {{-- TOP NAVIGATION --}}
+        <div class="top-navigation">
 
-            <i class="fa-solid fa-arrow-left me-2"></i>
-            Back to Scheduled Transactions
+            <a href="{{ url('/userallscheduledtransactions') }}"
+               class="back-dashboard">
 
-        </a>
+                <i class="fa-solid fa-arrow-left me-2"></i>
 
-        <div class="card-box">
+                Back to Scheduled Transactions
 
-            <div class="header">
+            </a>
+
+        </div>
+
+
+        {{-- MAIN CARD --}}
+        <div class="scheduled-card">
+
+            {{-- HEADER --}}
+            <div class="scheduled-header">
 
                 <div class="header-icon">
                     <i class="fa-solid fa-calendar-plus"></i>
                 </div>
 
-                <h2>Add Scheduled Transaction</h2>
+                <div>
 
-                <p>
-                    Automatically track income or expenses that happen regularly.
-                </p>
+                    <h2>
+                        Add Scheduled Transaction
+                    </h2>
+
+                    <p>
+                        Automatically track income or expenses that happen regularly.
+                    </p>
+
+                </div>
 
             </div>
 
-            <div class="body">
 
-                <div class="info-box">
+            {{-- FORM BODY --}}
+            <div class="scheduled-form-body">
 
-                    <i class="fa-solid fa-circle-info me-2"></i>
 
-                    Example: Monthly allowance, rent, subscriptions, or regular income.
+                {{-- INFORMATION BOX --}}
+                <div class="scheduled-info-box">
+
+                    <i class="fa-solid fa-circle-info"></i>
+
+                    <div>
+                        <strong>How scheduled transactions work</strong>
+
+                        <span>
+                            Example: Monthly allowance, rent, subscriptions,
+                            or regular income.
+                        </span>
+                    </div>
 
                 </div>
+
+
+                {{-- VALIDATION ERRORS --}}
+                @if(session('error'))
+
+                    <div class="scheduled-error">
+
+                        <i class="fa-solid fa-circle-exclamation"></i>
+
+                        <span>
+                            {{ session('error') }}
+                        </span>
+
+                    </div>
+
+                @endif
+
+
+                @if($errors->any())
+
+                    <div class="scheduled-error">
+
+                        <div>
+
+                            <strong>
+                                <i class="fa-solid fa-circle-exclamation me-1"></i>
+                                Please fix the following errors:
+                            </strong>
+
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                @endif
+
+
+                <div class="section-title">
+
+                    <i class="fa-solid fa-sliders me-2"></i>
+
+                    Transaction Information
+
+                </div>
+
 
                 <form action="{{ url('/useraddscheduledtransactionlogic') }}"
                       method="POST">
 
                     @csrf
 
-                    <div class="mb-4">
 
-                        <label class="form-label">
+                    {{-- CATEGORY --}}
+                    <div class="scheduled-form-group">
+
+                        <label class="scheduled-label">
 
                             <i class="fa-solid fa-layer-group"></i>
+
                             Category
 
                         </label>
 
                         <select name="category_id"
-                                class="form-select"
+                                class="scheduled-input scheduled-select"
                                 required>
 
                             <option value="">
@@ -250,29 +143,40 @@
 
                             @foreach($categories as $category)
 
-                                <option value="{{ $category->id }}">
-
-                                    {{ $category->Name }} - {{ $category->type }}
-
+                                <option
+                                    value="{{ $category->id }}"
+                                    {{ old('category_id') == $category->id ? 'selected' : '' }}
+                                >
+                                    {{ $category->Name }} - {{ ucfirst($category->type) }}
                                 </option>
 
                             @endforeach
 
                         </select>
 
+                        <div class="scheduled-help">
+
+                            <i class="fa-solid fa-circle-info"></i>
+
+                            Choose the category where this transaction should be recorded.
+
+                        </div>
+
                     </div>
 
 
-                    <div class="mb-4">
+                    {{-- AMOUNT --}}
+                    <div class="scheduled-form-group">
 
-                        <label class="form-label">
+                        <label class="scheduled-label">
 
                             <i class="fa-solid fa-money-bill-wave"></i>
+
                             Amount
 
                         </label>
 
-                        <div class="input-group">
+                        <div class="input-group scheduled-input-group">
 
                             <span class="input-group-text">
                                 PKR
@@ -284,103 +188,149 @@
                                    min="1"
                                    step="0.01"
                                    placeholder="Enter amount"
+                                   value="{{ old('Amount') }}"
                                    required>
+
+                        </div>
+
+                        <div class="scheduled-help">
+
+                            <i class="fa-solid fa-circle-info"></i>
+
+                            Enter the amount that will be recorded each time.
 
                         </div>
 
                     </div>
 
 
-                    <div class="mb-4">
+                    {{-- DESCRIPTION --}}
+                    <div class="scheduled-form-group">
 
-                        <label class="form-label">
+                        <label class="scheduled-label">
 
                             <i class="fa-solid fa-align-left"></i>
+
                             Description
 
                         </label>
 
                         <input type="text"
                                name="Description"
-                               class="form-control"
-                               placeholder="Example: Monthly Allowance">
+                               class="scheduled-input"
+                               placeholder="Example: Monthly Allowance"
+                               value="{{ old('Description') }}"
+                               maxlength="255">
+
+                        <div class="scheduled-help">
+
+                            <i class="fa-solid fa-circle-info"></i>
+
+                            Add a short description to easily identify this transaction.
+
+                        </div>
 
                     </div>
 
 
-                    <div class="mb-4">
+                    {{-- START DATE --}}
+                    <div class="scheduled-form-group">
 
-                        <label class="form-label">
+                        <label class="scheduled-label">
 
                             <i class="fa-regular fa-calendar"></i>
+
                             Start Date
 
                         </label>
 
                         <input type="date"
                                name="StartDate"
-                               class="form-control"
+                               class="scheduled-input"
+                               value="{{ old('StartDate') }}"
                                required>
 
-                        <div class="help">
+                        <div class="scheduled-help">
+
+                            <i class="fa-solid fa-calendar-day"></i>
+
                             This will be the first date on which the transaction is created.
+
                         </div>
 
                     </div>
 
 
-                    <div class="mb-4">
+                    {{-- FREQUENCY --}}
+                    <div class="scheduled-form-group">
 
-                        <label class="form-label">
+                        <label class="scheduled-label">
 
                             <i class="fa-solid fa-arrows-rotate"></i>
+
                             Frequency
 
                         </label>
 
                         <select name="Frequency"
-                                class="form-select"
+                                class="scheduled-input scheduled-select"
                                 required>
 
                             <option value="">
                                 Select frequency
                             </option>
 
-                            <option value="Daily">
+                            <option value="Daily"
+                                {{ old('Frequency') == 'Daily' ? 'selected' : '' }}>
                                 Daily
                             </option>
 
-                            <option value="Weekly">
+                            <option value="Weekly"
+                                {{ old('Frequency') == 'Weekly' ? 'selected' : '' }}>
                                 Weekly
                             </option>
 
-                            <option value="Monthly">
+                            <option value="Monthly"
+                                {{ old('Frequency') == 'Monthly' ? 'selected' : '' }}>
                                 Monthly
                             </option>
 
-                            <option value="Yearly">
+                            <option value="Yearly"
+                                {{ old('Frequency') == 'Yearly' ? 'selected' : '' }}>
                                 Yearly
                             </option>
 
                         </select>
 
+                        <div class="scheduled-help">
+
+                            <i class="fa-solid fa-repeat"></i>
+
+                            Select how often this transaction should be scheduled.
+
+                        </div>
+
                     </div>
 
 
-                    <div class="actions d-flex justify-content-between gap-3">
+                    {{-- ACTIONS --}}
+                    <div class="scheduled-actions">
 
-                        <a href="{{ url('/userallscheduledtransactions') }}"
-                           class="btn btn-outline-secondary">
+                        <a href="{{ url('/user/allscheduledtransactions') }}"
+                           class="scheduled-cancel">
 
-                            <i class="fa-solid fa-xmark me-1"></i>
+                            <i class="fa-solid fa-xmark"></i>
+
                             Cancel
 
                         </a>
 
-                        <button type="submit"
-                                class="btn save-btn">
 
-                            <i class="fa-solid fa-calendar-check me-2"></i>
+                        <button type="submit"
+                                class="scheduled-save">
+
+                            <i class="fa-solid fa-calendar-check"></i>
+
                             Save Scheduled Transaction
 
                         </button>
@@ -388,6 +338,18 @@
                     </div>
 
                 </form>
+
+
+                {{-- SECURITY NOTE --}}
+                <div class="scheduled-security">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <span>
+                        Your scheduled transactions are private and linked to your account.
+                    </span>
+
+                </div>
 
             </div>
 
@@ -397,6 +359,4 @@
 
 </div>
 
-</body>
-
-</html>
+@endsection

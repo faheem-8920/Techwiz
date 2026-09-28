@@ -2,181 +2,132 @@
 
 @section('content')
 
-<div class="container-fluid py-4">
+<div class="announcement-page">
 
-    <!-- Page Header -->
-    <div class="mb-4">
+<!-- Page Header -->
+<div class="announcement-page-header">
 
-        <div class="d-flex align-items-center gap-2 mb-2">
-
-            <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-2">
-                <i class="fa-solid fa-bullhorn fs-5"></i>
-            </div>
-
-            <span class="text-primary fw-semibold">
-                Campus Coin
-            </span>
-
+    <div class="announcement-brand">
+        <div class="announcement-brand-icon">
+            <i class="fa-solid fa-bullhorn"></i>
         </div>
 
-        <h2 class="fw-bold mb-1">
-            Announcements
-        </h2>
-
-        <p class="text-muted mb-0">
-            Stay updated with the latest announcements from Campus Coin.
-        </p>
-
+        <span>Campus Coin</span>
     </div>
 
+    <h2>Announcements</h2>
 
-    @if($announcements->count() > 0)
+    <p>
+        Stay updated with the latest announcements from Campus Coin.
+    </p>
 
-        <div class="row g-4">
-
-            @foreach($announcements as $announcement)
-
-                <div class="col-xl-6 col-lg-6 col-md-12">
-
-                    <div class="card border-0 shadow-sm h-100 announcement-card">
-
-                        <div class="card-body p-4">
-
-                            <!-- Top -->
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-
-                                <div class="d-flex align-items-center gap-3">
-
-                                    <div class="bg-primary bg-opacity-10 text-primary rounded-3 p-3">
-
-                                        <i class="fa-solid fa-bullhorn fs-5"></i>
-
-                                    </div>
-
-                                    <div>
-
-                                        <h5 class="fw-bold mb-1">
-                                            {{ $announcement->Title }}
-                                        </h5>
-
-                                        <small class="text-muted">
-                                            <i class="fa-regular fa-calendar me-1"></i>
-
-                                            {{ $announcement->created_at->format('d M Y') }}
-
-                                        </small>
-
-                                    </div>
-
-                                </div>
+</div>
 
 
-                                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2">
+@if($announcements->count() > 0)
 
-                                    <i class="fa-solid fa-circle-check me-1"></i>
-                                    Active
+    <div class="announcement-grid">
 
+        @foreach($announcements as $announcement)
+
+            <div class="announcement-card">
+
+                <div class="announcement-card-body">
+
+                    <!-- Announcement Top -->
+                    <div class="announcement-top">
+
+                        <div class="announcement-title-area">
+
+                            <div class="announcement-icon">
+                                <i class="fa-solid fa-bullhorn"></i>
+                            </div>
+
+                            <div class="announcement-title-content">
+
+                                <h5>
+                                    {{ $announcement->Title }}
+                                </h5>
+
+                                <span class="announcement-date">
+                                    <i class="fa-regular fa-calendar"></i>
+                                    {{ $announcement->created_at->format('d M Y') }}
                                 </span>
-
-                            </div>
-
-
-                            <!-- Divider -->
-                            <hr class="my-3">
-
-
-                            <!-- Message -->
-                            <div class="announcement-message">
-
-                                <p class="text-muted mb-0">
-
-                                    {{ $announcement->Message }}
-
-                                </p>
-
-                            </div>
-
-
-                            <!-- Footer -->
-                            <div class="mt-4 pt-3 border-top">
-
-                                <div class="d-flex align-items-center justify-content-between">
-
-                                    <small class="text-muted">
-
-                                        <i class="fa-regular fa-clock me-1"></i>
-
-                                        {{ $announcement->created_at->format('h:i A') }}
-
-                                    </small>
-
-
-                                    <small class="text-primary fw-semibold">
-
-                                        Campus Coin Admin
-
-                                    </small>
-
-                                </div>
 
                             </div>
 
                         </div>
 
+
+                        <span class="announcement-status">
+                            <i class="fa-solid fa-circle-check"></i>
+                            Active
+                        </span>
+
+                    </div>
+
+
+                    <!-- Divider -->
+                    <div class="announcement-divider"></div>
+
+
+                    <!-- Message -->
+                    <div class="announcement-message">
+
+                        <div class="announcement-message-label">
+                            <i class="fa-regular fa-message"></i>
+                            Announcement
+                        </div>
+
+                        <p>
+                            {{ $announcement->Message }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- Footer -->
+                    <div class="announcement-footer">
+
+                        <span class="announcement-time">
+                            <i class="fa-regular fa-clock"></i>
+                            {{ $announcement->created_at->format('h:i A') }}
+                        </span>
+
+                        <span class="announcement-admin">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            Campus Coin Admin
+                        </span>
+
                     </div>
 
                 </div>
 
-            @endforeach
-
-        </div>
-
-    @else
-
-        <!-- Empty State -->
-        <div class="card border-0 shadow-sm">
-
-            <div class="card-body text-center py-5">
-
-                <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-inline-flex p-4 mb-4">
-
-                    <i class="fa-solid fa-bullhorn fa-2x"></i>
-
-                </div>
-
-                <h4 class="fw-bold mb-2">
-                    No Announcements
-                </h4>
-
-                <p class="text-muted mb-0">
-                    There are no active announcements available right now.
-                </p>
-
             </div>
 
+        @endforeach
+
+    </div>
+
+@else
+
+    <!-- Empty State -->
+    <div class="announcement-empty">
+
+        <div class="announcement-empty-icon">
+            <i class="fa-solid fa-bullhorn"></i>
         </div>
 
-    @endif
+        <h4>No Announcements</h4>
+
+        <p>
+            There are no active announcements available right now.
+        </p>
+
+    </div>
+
+@endif
 
 </div>
-
-
-<style>
-
-.announcement-card {
-    transition: all 0.25s ease;
-}
-
-.announcement-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
-}
-
-.announcement-message {
-    line-height: 1.7;
-    min-height: 70px;
-}
-
-</style>
 
 @endsection

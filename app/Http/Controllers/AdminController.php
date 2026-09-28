@@ -237,5 +237,44 @@ public function Activateannouncement($id)
 
 }
 
+public function Admindashboard()
+{
+
+$totalUsers = User::count();
+$totalTransactions = Transaction::count();
+$totalBudgets = Budget::count();
+
+$totalIncome = Transaction::where('Amount', '>', 0)->sum('Amount');
+$totalExpenses = Transaction::where('Amount', '<', 0)->sum('Amount');
+
+$totalcategories = Category::count();
+
+$totalAnnouncements = Adminannouncement::count();
+$totalActiveAnnouncements = Adminannouncement::where('Status', true)->count();
+$totalInactiveAnnouncements = Adminannouncement::where('Status', false)->count();
+$totalActiveUsers = User::where('Status', true)->count();
+$totalInactiveUsers = User::where('Status', false)->count();
+
+$totalincomecategories = Category::where('type', 'income')->count();
+$totalexpensecategories = Category::where('type', 'expense')->count();
+
+return view('admin.dashboard', compact(
+    'totalUsers',
+    'totalTransactions',
+    'totalBudgets',
+    'totalIncome',
+    'totalExpenses',
+    'totalcategories',
+    'totalAnnouncements',
+    'totalActiveAnnouncements',
+    'totalInactiveAnnouncements',
+    'totalActiveUsers',
+    'totalInactiveUsers',
+    'totalincomecategories',
+    'totalexpensecategories'
+));
+
+
+}
 
 }

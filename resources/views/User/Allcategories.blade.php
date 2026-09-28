@@ -92,8 +92,8 @@
 
     <h2>All Categories</h2>
 
-    <a href="{{ url('/addcategory') }}" class="add-button">
-        Add Category
+    <a href="{{ url('/useraddcategory') }}" class="add-button">
+
     </a>
 
     <table>
@@ -147,7 +147,7 @@
                     <td>
 
                         <a
-                            href="{{ url('/editcategory/'.$category->id) }}"
+                            href="{{ url('/usereditcategory/'.$category->id) }}"
                             class="edit-button"
                         >
                             Edit
