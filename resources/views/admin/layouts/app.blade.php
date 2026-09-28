@@ -105,7 +105,7 @@
 
         <div class="sidebar-brand">
 
-            <a href="{{ url('/admin/dashboard') }}">
+            <a href="{{ url('/admindashboard') }}">
 
                 <div class="brand-icon">
 
@@ -145,8 +145,8 @@
 
 
             <a
-                href="{{ url('/admin/dashboard') }}"
-                class="sidebar-link {{ request()->is('admin/dashboard') ? 'active' : '' }}"
+                href="/admindashboard"
+                class="sidebar-link {{ request()->is('admindashboard') ? 'active' : '' }}"
             >
 
                 <i class="fa-solid fa-chart-pie"></i>

@@ -185,7 +185,7 @@
 
                                 <td>
 
-                                    <a href="{{ url('/edittransaction/'.$transaction->id) }}"
+                                    <a href="{{ url('/useredittransaction/'.$transaction->id) }}"
                                        class="edit-btn">
                                         Edit
                                     </a>
@@ -216,7 +216,7 @@
 
         @endif
 
-        <a href="{{ url('/addtransaction') }}" class="back-btn">
+        <a href="{{ url('/useraddtransaction') }}" class="back-btn">
             Add New Transaction
         </a>
 
