@@ -74,7 +74,7 @@
             cursor: pointer;
         }
 
-        .income {
+        .Income {
             color: green;
             font-weight: bold;
         }
@@ -128,9 +128,9 @@
 
                     <td>
 
-                        @if($category->type == 'Income')
+                        @if($category->type == 'income')
 
-                            <span class="income">
+                            <span class="Income">
                                 Income
                             </span>
 

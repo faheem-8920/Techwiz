@@ -158,7 +158,7 @@
 
                                 <td>
 
-                                    @if(\App\Models\Category::find($transaction->category_id)->type == 'Income')
+                                    @if(\App\Models\Category::find($transaction->category_id)->type == 'income')
 
                                         <span class="income">
                                             Income

@@ -17,11 +17,14 @@
         </div>
 
         <div class="col-12 col-md-6 text-md-end">
+       <form action="{{ url('userreportpdf') }}" method="GET">
 
-            <button type="button" class="btn btn-primary">
-                <i class="bi bi-download me-1"></i>
-                Export Report
-            </button>
+    <button type="submit" class="btn btn-primary">
+        <i class="bi bi-download me-1"></i>
+        Export Report
+    </button>
+</form>
+
 
         </div>
 
@@ -242,8 +245,8 @@
                                 Remaining Balance
                             </h6>
                             @php
-        $balance = $totalIncome - $totalExpenses;
-    @endphp
+                                $balance = $totalIncome - $totalExpenses;
+                            @endphp
     
 
                             <h3 class="text-primary">

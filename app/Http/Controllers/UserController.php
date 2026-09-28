@@ -11,6 +11,7 @@ use App\Models\Adminannouncement;
 use App\Models\Scheduledtransaction;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -24,7 +25,7 @@ class UserController extends Controller
 
         $category->save();
 
-        return redirect('/useraddcategory');
+        return redirect()->back()->with('success', 'Category added successfully.');
     }
 
 
@@ -248,64 +249,56 @@ class UserController extends Controller
 
 
     public function Userdashboard()
-    {
-        $userId = auth()->id();
+{
+    $userId = auth()->id();
 
-        $totalIncome = Transaction::where('user_id', $userId)
-            ->whereHas('category', function ($query) {
-                $query->where('type', 'Income');
-            })
-            ->sum('Amount');
+    $totalIncome = Transaction::query()
+        ->join('categories', 'transactions.category_id', '=', 'categories.id')
+        ->where('transactions.user_id', $userId)
+        ->whereRaw('LOWER(TRIM(categories.type)) = ?', ['income'])
+        ->sum('transactions.Amount');
 
-        $totalExpenses = Transaction::where('user_id', $userId)
-            ->whereHas('category', function ($query) {
-                $query->where('type', 'Expense');
-            })
-            ->sum('Amount');
+    $totalExpenses = Transaction::query()
+        ->join('categories', 'transactions.category_id', '=', 'categories.id')
+        ->where('transactions.user_id', $userId)
+        ->whereRaw('LOWER(TRIM(categories.type)) = ?', ['expense'])
+        ->sum('transactions.Amount');
 
-        $totalTransactions = Transaction::where('user_id', $userId)
-            ->count();
+    $totalTransactions = Transaction::where('user_id', $userId)
+        ->count();
 
-        return view(
-            'User.dashboard',
-            compact(
-                'totalIncome',
-                'totalExpenses',
-                'totalTransactions'
-            )
-        );
-    }
+    return view('User.dashboard', compact(
+        'totalIncome',
+        'totalExpenses',
+        'totalTransactions'
+    ));
+}
 
+public function Userreport()
+{
+    $userId = auth()->id();
 
-    public function Userreport()
-    {
-        $userId = auth()->id();
+    $totalIncome = Transaction::query()
+        ->join('categories', 'transactions.category_id', '=', 'categories.id')
+        ->where('transactions.user_id', $userId)
+        ->whereRaw('LOWER(TRIM(categories.type)) = ?', ['income'])
+        ->sum('transactions.Amount');
 
-        $totalIncome = Transaction::where('user_id', $userId)
-            ->whereHas('category', function ($query) {
-                $query->where('type', 'Income');
-            })
-            ->sum('Amount');
+    $totalExpenses = Transaction::query()
+        ->join('categories', 'transactions.category_id', '=', 'categories.id')
+        ->where('transactions.user_id', $userId)
+        ->whereRaw('LOWER(TRIM(categories.type)) = ?', ['expense'])
+        ->sum('transactions.Amount');
 
-        $totalExpenses = Transaction::where('user_id', $userId)
-            ->whereHas('category', function ($query) {
-                $query->where('type', 'Expense');
-            })
-            ->sum('Amount');
+    $totalTransactions = Transaction::where('user_id', $userId)
+        ->count();
 
-        $totalTransactions = Transaction::where('user_id', $userId)
-            ->count();
-
-        return view(
-            'User.reports',
-            compact(
-                'totalIncome',
-                'totalExpenses',
-                'totalTransactions'
-            )
-        );
-    }
-
+    return view('User.reports', compact(
+        'totalIncome',
+        'totalExpenses',
+        'totalTransactions'
+    ));
+}
 
     public function Addbudget()
     {
@@ -500,61 +493,80 @@ class UserController extends Controller
     }
 
 
-    public function Userreports(Request $request)
-    {
-        $month = $request->month;
+   public function userreportpdf(Request $request)
+{
+    $filter = $request->input('filter', 'monthly');
 
-        if (!$month) {
-            $month = date('Y-m');
-        }
-
-        $transactions = Transaction::where(
-            'user_id',
-            auth()->id()
-        )
-            ->whereMonth(
-                'Date',
-                date('m', strtotime($month))
-            )
-            ->whereYear(
-                'Date',
-                date('Y', strtotime($month))
-            )
-            ->with('category')
-            ->get();
-
-        $income = 0;
-        $expense = 0;
-
-        foreach ($transactions as $transaction) {
-
-            $category = $transaction->category;
-
-            if ($category && $category->type == 'Income') {
-                $income = $income + $transaction->Amount;
-            }
-
-            if ($category && $category->type == 'Expense') {
-                $expense = $expense + $transaction->Amount;
-            }
-        }
-
-        $balance = $income - $expense;
-
-        return view(
-            'User.Userreports',
-            compact(
-                'transactions',
-                'income',
-                'expense',
-                'balance',
-                'month'
-            )
-        );
+    // Accept only supported filter values
+    if (!in_array($filter, ['daily', 'weekly', 'monthly'], true)) {
+        $filter = 'monthly';
     }
 
+    $query = Transaction::where('user_id', auth()->id());
 
-    public function userreportpdf(Request $request)
+    if ($filter === 'daily') {
+        $date = $request->input('date', now()->toDateString());
+
+        $request->validate([
+            'date' => ['nullable', 'date'],
+        ]);
+
+        $query->whereDate('Date', $date);
+    } elseif ($filter === 'weekly') {
+        $start = Carbon::now()->startOfWeek(Carbon::MONDAY)->toDateString();
+        $end = Carbon::now()->endOfWeek(Carbon::SUNDAY)->toDateString();
+
+        $query->whereDate('Date', '>=', $start)
+              ->whereDate('Date', '<=', $end);
+    } else {
+        $month = $request->input('month', now()->format('Y-m'));
+
+        $request->validate([
+            'month' => ['nullable', 'date_format:Y-m'],
+        ]);
+
+        $start = Carbon::createFromFormat('Y-m', $month)
+            ->startOfMonth()
+            ->toDateString();
+
+        $end = Carbon::createFromFormat('Y-m', $month)
+            ->endOfMonth()
+            ->toDateString();
+
+        $query->whereDate('Date', '>=', $start)
+              ->whereDate('Date', '<=', $end);
+    }
+
+    $transactions = $query->with('category')->orderBy('Date', 'desc')->get();
+
+    $income = 0;
+    $expense = 0;
+
+    foreach ($transactions as $transaction) {
+        $type = strtolower(trim($transaction->category->type ?? ''));
+
+        if ($type === 'income') {
+            $income += (float) $transaction->Amount;
+        } elseif ($type === 'expense') {
+            $expense += (float) $transaction->Amount;
+        }
+    }
+
+    $balance = $income - $expense;
+
+    $pdf = Pdf::loadView('User.Reportpdf', [
+        'transactions' => $transactions,
+        'income' => $income,
+        'expense' => $expense,
+        'balance' => $balance,
+        'filter' => $filter,
+    ]);
+
+    return $pdf->download('Userreports.pdf');
+}
+
+
+    public function Userreportpdflogic(Request $request)
     {
         $filter = $request->filter;
 
@@ -641,19 +653,25 @@ class UserController extends Controller
 
         $balance = $income - $expense;
 
-        $pdf = Pdf::loadView(
-            'User.Reportpdf',
-            compact(
-                'transactions',
-                'income',
-                'expense',
-                'balance',
-                'filter'
-            )
-        );
+   $pdf = Pdf::loadView(
+    'User.reports',
+    [
+        'transactions' => $transactions,
 
-        return $pdf->download('Userreports.pdf');
-    }
+        // Variables required by report.blade.php
+        'totalIncome' => $income,
+        'totalExpenses' => $expense,
+
+        // Variables used by the PDF calculations
+        'income' => $income,
+        'expense' => $expense,
+        'balance' => $balance,
+
+        'filter' => $filter,
+    ]
+);
+
+return $pdf->download('Userreports.pdf'); }
 
 
     public function Userinsights()
@@ -837,6 +855,104 @@ class UserController extends Controller
             )
         );
     }
+
+
+public function Userreportcsv(Request $request)
+{
+    $request->validate([
+        'filter' => ['nullable', 'in:daily,weekly,monthly'],
+        'date' => ['nullable', 'date'],
+        'month' => ['nullable', 'date_format:Y-m'],
+    ]);
+
+    $filter = $request->input('filter', 'monthly');
+
+    $query = Transaction::where('user_id', auth()->id())
+        ->with('category');
+
+    if ($filter === 'daily') {
+        $date = $request->input('date', now()->toDateString());
+
+        $query->whereDate('Date', $date);
+    } elseif ($filter === 'weekly') {
+        $start = Carbon::now()->startOfWeek(Carbon::MONDAY)
+            ->toDateString();
+
+        $end = Carbon::now()->endOfWeek(Carbon::SUNDAY)
+            ->toDateString();
+
+        $query->whereBetween('Date', [$start, $end]);
+    } else {
+        $month = $request->input('month', now()->format('Y-m'));
+
+        $start = Carbon::createFromFormat('Y-m', $month)
+            ->startOfMonth()->toDateString();
+
+        $end = Carbon::createFromFormat('Y-m', $month)
+            ->endOfMonth()->toDateString();
+
+        $query->whereBetween('Date', [$start, $end]);
+    }
+
+    $transactions = $query->orderBy('Date', 'desc')->get();
+
+    $filename = 'User_Report_' . now()->format('Y-m-d_H-i-s') . '.csv';
+
+    return response()->streamDownload(function () use ($transactions) {
+        $handle = fopen('php://output', 'w');
+
+        // UTF-8 BOM helps Excel display text correctly.
+        fwrite($handle, "\xEF\xBB\xBF");
+
+        fputcsv($handle, [
+            'Date',
+            'Category',
+            'Type',
+            'Amount',
+            'Description'
+        ]);
+
+        $totalIncome = 0;
+        $totalExpenses = 0;
+
+        foreach ($transactions as $transaction) {
+            $type = strtolower(trim($transaction->category->type ?? ''));
+
+            if ($type === 'income') {
+                $totalIncome += (float) $transaction->Amount;
+                $displayType = 'Income';
+            } elseif ($type === 'expense') {
+                $totalExpenses += (float) $transaction->Amount;
+                $displayType = 'Expense';
+            } else {
+                $displayType = 'Unknown';
+            }
+
+            fputcsv($handle, [
+                $transaction->Date,
+                $transaction->category->Name ?? 'Unknown',
+                $displayType,
+                $transaction->Amount,
+                $transaction->Description
+            ]);
+        }
+
+        fputcsv($handle, []);
+        fputcsv($handle, ['Report Summary']);
+        fputcsv($handle, ['Total Income', '', '', $totalIncome]);
+        fputcsv($handle, ['Total Expenses', '', '', $totalExpenses]);
+        fputcsv($handle, [
+            'Remaining Balance',
+            '',
+            '',
+            $totalIncome - $totalExpenses
+        ]);
+
+        fclose($handle);
+    }, $filename, [
+        'Content-Type' => 'text/csv; charset=UTF-8',
+    ]);
+}
 
 
     public function Allscheduledtransactions()

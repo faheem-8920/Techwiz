@@ -111,8 +111,8 @@
                             </h6>
 
                             @php
-        $balance = $totalIncome - $totalExpenses;
-    @endphp
+                               $balance = $totalIncome - $totalExpenses;
+                            @endphp
     
 
                             <h3 class="font-extrabold mb-0">

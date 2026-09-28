@@ -128,7 +128,7 @@
 
                     <td>
 
-                        @if($category->type == 'Income')
+                        @if($category->type == 'income')
 
                             <span class="income">
                                 Income

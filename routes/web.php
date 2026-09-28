@@ -129,10 +129,12 @@ Route::middleware(['auth', 'role:student'])->group(function () {
     Route::get('/userallannouncements', [UserController::class, 'Allannouncenments']);
 
 
-    Route::get('/userreports', [UserController::class, 'Userreports']);
+    Route::get('/userreports', [UserController::class, 'Userreport']);
 
-    Route::get('/userreportpdf', [UserController::class, 'Userreportpdf']);
+    Route::get('/userreportpdf', [UserController::class, 'Userreportpdflogic']);
 
+    Route::get('/userreportcsv', [UserController::class, 'Userreportcsv'])
+    ->middleware('auth');
 
     Route::get('/userinsights', [UserController::class, 'Userinsights']);
 

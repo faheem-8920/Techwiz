@@ -10,21 +10,27 @@ class RoleMiddleware
 {
     public function handle(Request $request, Closure $next, $role)
     {
+
         if (!auth()->check()) {
             return redirect('/login');
         }
 
-        if (auth()->user()->userrole != $role) {
-
-            if (auth()->user()->userrole == 'admin') {
-                return redirect('/allcategories');
-            }
-
-            if (auth()->user()->userrole == 'student') {
-                return redirect('/');
-            }
+        $userRole = auth()->user()->userrole;
+  
+        if ($userRole == 'admin') 
+            {
+            if ($role == 'admin') 
+                {
+                    return $next($request);
+                }
+            return redirect('/admin/layout.app');
         }
 
-        return $next($request);
+        if ($userRole == 'student') 
+            {
+            if ($role == 'student') {
+                return $next($request);}
+            return redirect('/useraddcategory');
+        }
     }
 }

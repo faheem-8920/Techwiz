@@ -150,19 +150,7 @@
             </li>
 
 
-            {{-- SAVING INSIGHTS --}}
-            <li class="sidebar-item">
-
-                <a href="/userinsights" class="sidebar-link">
-
-                    <i class="bi bi-lightbulb-fill"></i>
-
-                    <span>Saving Insights</span>
-
-                </a>
-
-            </li>
-
+            
 
             {{-- ANNOUNCEMENTS --}}
             <li class="sidebar-item">
@@ -184,32 +172,7 @@
             </li>
 
 
-            {{-- PROFILE --}}
-            <li class="sidebar-item">
-
-                <a href="/profile" class="sidebar-link">
-
-                    <i class="bi bi-person-circle"></i>
-
-                    <span>Profile</span>
-
-                </a>
-
-            </li>
-
-
-            {{-- SETTINGS --}}
-            <li class="sidebar-item">
-
-                <a href="/settings" class="sidebar-link">
-
-                    <i class="bi bi-gear-fill"></i>
-
-                    <span>Settings</span>
-
-                </a>
-
-            </li>
+            
 
 
             {{-- LOGOUT --}}
